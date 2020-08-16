@@ -1,0 +1,53 @@
+\section[Aproximación polinomial]{Funciones aproximables mediante series de Chebyshev}
+Utilizando un conjunto de polinomios ortogonales (no necesariamente clásicos) como base, se pueden
+expandir funciones arbitrarias $f$ pertenecientes al espacio de 
+funciones integrables cuadradas ponderado en el intervalo $[a, b]$, es decir 
+\begin{equation*}f \in \mathcal{L}^2_w(a, b),\end{equation*}
+o lo que es lo mismo, las funciones cuya integral 
+\begin{equation*}\int_{a}^{b} w(x) |f(x)|^2 dx < \infty \end{equation*} esté definida.
+
+Para el caso particular de los polinomios de Chebyshev de primera especie se tiene entonces que 
+se pueden expandir funciones 
+\begin{equation*}f \in \mathcal{L}^2_{(1-x^2)^{-\frac12}} (-1, 1) .\end{equation*}
+
+La expansión se da mediante la expresión 
+\begin{equation*}\label{eq:chebyshevSeries}
+	\ket{f} = \sum_{n=0}^\infty \bar{f}_n \ket{T_n},
+\end{equation*}
+donde $\bar{f}_n$ son los coeficientes de expansión, cuya expresión se obtiene mediante manipulaciones
+de la expansión de $\ket f$, inicialmente se multiplica por $\bra{T_m}$ por la izquierda
+\begin{equation*}
+	\bra{T_m}\ket{f} = \sum_{n=0}^\infty \bar{f}_n \bra{T_m}\ket{T_n},
+\end{equation*}
+el producto de los polinomios de Chebyshev cumplen la relación de ortogonalidad
+\begin{equation*}
+	\bra{T_m}\ket{T_n} = \delta^m_n\frac{\pi}{2 - \delta^m_0},
+\end{equation*}
+donde $\delta^i_j$ es la delta de Kronecker; de modo que
+\begin{equation*}
+	\bra{T_m}\ket{f} = \frac{\pi}{2 - \delta^m_0}\bar{f}_m,
+\end{equation*}
+reordenando
+%\begin{subequations}
+\begin{align}
+	\bar{f}_m &= \frac{2 - \delta^m_0}{\pi} \bra{T_m}\ket{f} \nonumber\\
+	\bar{f}_m &= \frac{2 - \delta^m_0}{\pi} \int_{-1}^{1} \frac{T_m^*(x)f(x)}{\sqrt{1-x^2}} dx
+	 \label{eq:chebyshevCoeff}
+\end{align}
+%\end{subequations}
+
+Finalmente, para aproximar dichas funciones solo basta con truncar la serie de Chebyshev
+hasta un orden finito $N$, es decir
+\begin{equation*}\label{eq:truncChebyshev}
+	\ket{f} \sim \sum_{n=0}^N \bar{f}_n \ket{T_n},
+\end{equation*}
+Sin embargo esta presenta oscilaciones de Gibbs alrededor de los puntos donde $f(x)$ 
+no es continuamente diferenciable.
+Estas pueden ser amortiguadas mediante la convolución de la función con un núcleo 
+$K(x)$ \autocite{Weise2006}, a esto se le conoce como el \emph{kernel polynomial method} (KPM). 
+La serie de Chebyshev presenta la ventaja de que esta convolución 
+se puede incluir mediante la multiplicación de los coeficientes de expansión por un factor de
+amortiguamiento $g_n$ dependiente del núcleo a utilizar,
+\begin{equation}\label{eq:kpm}
+	\ket{f} \sim \sum_{n=0}^N \bar{f}_n g_n \ket{T_n}.
+\end{equation}

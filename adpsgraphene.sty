@@ -1,0 +1,203 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{adpsgraphene}[2018/07/31 paquete desarrollado para generar en TikZ gráficos de importancia para cristales de grafeno]
+
+\RequirePackage{tikz}
+
+\usetikzlibrary{calc}
+\usetikzlibrary{graphs}
+
+\newlength{\graphenespace}
+\newlength{\triangularspace}
+\newlength{\reciprocalspace}
+\newlength{\size@site}
+
+\newcommand{\latticevec}[1]{%
+	\setlength{\graphenespace}{#1}
+	\pgfmathsetlength{\triangularspace}{\graphenespace*sqrt(3)}
+	\pgfmathsetlength{\reciprocalspace}{1.8*\graphenespace}
+	\setlength{\size@site}{0.2\graphenespace}
+}
+
+\latticevec{1cm}
+
+\newif\ifflipy
+\newif\ifgraphene
+\graphenefalse
+
+\pgfkeys{/triangularkeys/.is family,
+	triangularkeys,
+	%
+	x/.store in=\trianglex,
+	y/.store in=\triangley,
+	%
+	side length/.store in=\triangleside,
+	side length/.default=\triangularspace,
+	%
+	flip y/.is if=flipy,
+	%
+	y shift/.store in=\yshifttemp,
+	y shift/.default=\graphenespace,
+	%
+	even/.code=\def\mod{0},
+	odd/.code=\def\mod{1},
+	even,
+	%
+	default/.style={side length, flip y=false, y shift=0pt},
+	%
+	graphene/.is if=graphene,
+	graphene/.append style={y shift, odd},
+}
+
+\tikzdeclarecoordinatesystem{triangular}%
+{%
+	\pgfkeys{/pgf/key filters/defined/.install key filter,}
+	\pgfkeysfiltered{triangularkeys, default, #1}%
+	%
+	\pgfmathsetlengthmacro{\triangleheight}{(\triangleside/2)*sqrt(3)}
+	%
+	\pgfsetxvec{\pgfpoint{\triangleside}{0pt}}
+	\pgfsetyvec{\pgfpoint{0pt}{-\triangleheight}}
+	%
+	\ifflipy\def\sign{-}\else\def\sign{}\fi
+	\ifgraphene\def\yshift{\yshifttemp+\triangleheight}\else\def\yshift{\yshifttemp}\fi
+	%
+	\pgfmathparse{int(mod(\triangley,2))}
+	%
+	\ifnum\pgfmathresult=\mod
+	\def\origin{\pgfpoint{0pt}{-\yshift}}
+	%
+	\else
+	\def\origin{\pgfpointadd{\pgfpointscale{0.5}{\pgfpoint{\sign\triangleside}{0pt}}}{\pgfpoint{0pt}{-\yshift}}}
+	\fi
+	%
+	\pgfpointadd{\origin}{\pgfpointxy{\trianglex}{\triangley}}
+}
+
+\tikzset{
+	site/.style={shape=circle, inner sep=0pt, outer sep=0pt, line width=0.6pt, minimum size=\size@site, draw=#1, fill=#1!70},
+	site/.default=black,
+	subAsite/.style={site=red},
+	subBsite/.style={site=blue},
+	vectors/.style={thick, #1, -{Latex[fill=#1!75]}},
+}
+
+\pgfkeys{/latticestarts/.is family, 
+	latticestarts,
+	istart/.initial=0,
+	istart/.get=\istart,
+	istart/.store in=\istart,
+	istart/.belongs to family=/latticestarts,
+	jstart/.initial=0,
+	jstart/.get=\jstart,
+	jstart/.store in=\jstart,
+	jstart/.belongs to family=/latticestarts,
+}
+
+\newcommand{\triangularSites}[3][]{
+	\pgfmathsetmacro{\istop}{int(#2-1)}
+	\pgfmathsetmacro{\jstop}{int(#3-1)}
+	%
+	{
+	\pgfkeys{%
+		/latticestarts/.activate family,%
+		/pgf/key filters/active families or descendants of/.install key filter={/tikz},}
+	\pgfqkeysfiltered{/tikz}{#1}
+	\pgfqkeysfiltered{/latticestarts}{#1}
+	%
+	\foreach \i in {\istart,...,\istop}{
+	\foreach \j [evaluate=\j as \jstep using int(\j/2)] in
+	{\jstart,...,\jstop}
+	\node [site] at (triangular cs:x=\jstep,y=\i, #1) (T-\i-\jstep) {};
+	}}
+}
+
+\newcommand{\triangularLattice}[3][]{
+	\triangularSites[#1]{#2}{#3}
+	\pgfmathsetmacro{\istop}{int(#2-1)}
+	\pgfmathsetmacro{\jstop}{int((#3-1)/2)}
+	%
+	{
+	\pgfkeys{%
+		/latticestarts/.activate family,%
+		/pgf/key filters/active families or descendants of/.install key filter={/tikz},}
+	\pgfqkeysfiltered{/tikz}{#1}
+	\pgfqkeysfiltered{/latticestarts}{#1}
+	\pgfkeys{/pgf/key filters/and/.install key filter={/pgf/key filters/defined}{/pgf/key filters/or={/pgf/key filters/equals={/triangularkeys/odd}}{/pgf/key filters/or={/pgf/key filters/equals={/triangularkeys/even}}{/pgf/key filters/equals={/triangularkeys/graphene}}}}}
+	\pgfqkeysfiltered{/triangularkeys}{#1}
+	%
+	\foreach \i 
+	[evaluate=\i as \nexti using int(\i+1)] [remember=\i as \previ]
+	in {\istart,...,\istop}{
+	\foreach \j [evaluate=\j as \nextj using int(\j+1)]
+	in {\jstart,...,\jstop}{
+	%
+		\pgfmathsetmacro{\modi}{int(mod(\i+1, 2))}
+		\ifnum\j=\jstop\def\next{}\else\def\next{ edge (T-\i-\nextj)}\fi
+		\ifnum\i=\istart\def\diag{}
+		\else\def\diag{ edge (T-\previ-\j)}
+		\ifnum\j<\jstop\ifnum\modi=\mod
+		\edef\diag{\diag edge (T-\previ-\nextj)}\fi\fi
+		\fi
+	%
+		\ifnum\modi=\mod
+		\ifnum\i<\istop\ifnum\j<\jstop
+		\edef\diag{\diag edge (T-\nexti-\j) edge (T-\nexti-\nextj)}\fi\fi\fi
+	%
+		\draw[bonds] (T-\i-\j) \next \diag;
+	%
+	}}}
+}
+	
+\newcommand{\honeySites}[3][]{%
+	\pgfmathsetmacro{\istop}{int(#2-1)}
+	\pgfmathsetmacro{\jstop}{int(#3-1)}
+	%
+	{
+	\pgfkeys{%
+		/latticestarts/.activate family,%
+		/pgf/key filters/active families or descendants of/.install key filter={/tikz},}
+	\pgfqkeysfiltered{/tikz}{#1}
+	\pgfqkeysfiltered{/latticestarts}{#1}
+	%
+	\foreach \i in {\istart,...,\istop}{
+	\foreach \j [evaluate=\j as \jstep using int(\j/2)] in {\jstart,...,\jstop}{%
+	%
+	\pgfmathsetmacro{\modij}{int(mod(\i+\j, 2))}
+	\ifnum\modij=0
+	\node [subBsite, alias=H-\i-\j] at (triangular cs:x=\jstep,y=\i) (HB-\i-\jstep) {};
+	\else
+	\node [subAsite, alias=H-\i-\j] at (triangular cs:x=\jstep,y=\i, graphene) (HA-\i-\jstep) {};
+	\fi
+	%
+	}}}
+}
+
+\tikzset{bonds/.style={help lines}}
+
+\newcommand{\honeyLattice}[3][]{
+	\honeySites[#1]{#2}{#3}
+	\pgfmathsetmacro{\istop}{int(#2-1)}
+	\pgfmathsetmacro{\jstop}{int(#3-1)}
+	%
+	{
+	\pgfkeys{%
+		/latticestarts/.activate family,%
+		/pgf/key filters/active families or descendants of/.install key filter={/tikz},}
+	\pgfqkeysfiltered{/tikz}{#1}
+	\pgfqkeysfiltered{/latticestarts}{#1}
+	%
+	\foreach \i [evaluate=\i as \nexti using int(\i+1)] in {\istart,...,\istop}{
+	\foreach \j [evaluate=\j as \nextj using int(\j+1)] in {\jstart,...,\jstop}{
+		%
+		\def\branch{}
+		\def\next{}
+		%
+		\pgfmathsetmacro{\modij}{int(mod(\i+\j, 2))}
+		\ifnum\modij=0\ifnum\i<\istop
+		\def\branch{ edge (H-\nexti-\j)}\fi\fi
+		\ifnum\j<\jstop\def\next{ edge (H-\i-\nextj)}\fi
+		%
+		\draw[bonds] (H-\i-\j) \next \branch;
+		%
+	}}}
+}

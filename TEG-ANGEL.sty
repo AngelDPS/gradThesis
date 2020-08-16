@@ -1,0 +1,134 @@
+\ProvidesPackage{TEG-ANGEL}
+
+\RequirePackage{euler}
+\RequirePackage{fontspec}
+\setmainfont{Libertinus Serif}
+\setsansfont{Libertinus Sans}
+\setmonofont{Libertinus Mono}
+\newfontfamily\FuturaRenner[Ligatures=TeX]{FuturaRenner Light}
+
+\RequirePackage[spanish=mexican]{csquotes}
+\RequirePackage{polyglossia}
+\setmainlanguage{spanish}
+
+\RequirePackage[letterpaper, headheight=14pt]{geometry}
+\RequirePackage{lastpage}
+\RequirePackage{ragged2e}
+\RequirePackage{fancyhdr}
+\fancyfoot{}
+\fancyhead[LE,RO]{\small\textsl{\MakeUppercase\rightmark}}
+\fancyhead[LO,RE]{\textsl{\MakeUppercase\leftmark}}
+\fancyfoot[LE,RO]{\thepage}
+\fancyfoot[LO,RE]{\textsc{Trabajo Especial de Grado}}
+\renewcommand{\footrulewidth}{0.2pt}
+\pagestyle{fancy}
+\fancypagestyle{plain}{%
+	\fancyhf{} 
+	\fancyfoot[LE,RO]{\thepage}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{0.2pt}}
+\newlength{\drop}
+\setlength{\drop}{0.05\textheight}
+\RequirePackage[Glenn]{fncychap}
+\RequirePackage{emptypage}
+\RequirePackage{microtype}
+\RequirePackage[toc, page, title, titletoc, header]{appendix}
+\renewcommand{\appendixname}{Apéndice}
+\renewcommand{\appendixtocname}{Apéndices}
+\renewcommand{\appendixpagename}{Apéndices}
+
+\RequirePackage{graphicx}
+\RequirePackage{xcolor}
+\RequirePackage[width=0.9\linewidth, list=true]{subcaption}
+\RequirePackage{tabularx}
+\RequirePackage{array}
+
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{mathtools}
+\RequirePackage{icomma}
+\RequirePackage{bm}
+\RequirePackage{bbm}
+\RequirePackage{physics}
+\RequirePackage[amssymb]{SIunits}
+% \RequirePackage{cancel}
+
+\RequirePackage[backend=biber, sorting=ynt, style=authoryear-comp, autocite=inline, minbibnames=2, url=false, eprint=false, backref=true, maxcitenames=1]{biblatex}
+\AtEveryBibitem{
+	\clearlist{address}
+	%\clearfield{date}
+	%\clearfield{isbn}
+	%\clearfield{issn}
+	%\clearlist{location}
+	%\clearfield{month}
+	%\clearfield{series}
+	\clearlist{publisher}
+	\clearname{editor}
+	%\clearfield{pages}
+	%\clearname{journal}
+}
+\setlength\bibitemsep{1.5\itemsep}
+
+\DefineBibliographyStrings{spanish}{andothers={et~al\adddot}}
+\addbibresource{TEG.bib}
+\RequirePackage[unicode, colorlinks, urlcolor=blue]{hyperref}
+
+\RequirePackage{adpsgraphene}
+\latticevec{1cm}
+
+\RequirePackage{pgfplots}
+\pgfplotsset{compat=1.16}
+
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{quotes}
+\usetikzlibrary{positioning}
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{intersections}
+\usetikzlibrary{patterns}
+\usetikzlibrary{shapes.misc}
+
+\tikzset{cross/.style={cross out, draw=red,	minimum size=0.75cm, 
+		inner sep=0pt, outer sep=0pt, line width=2pt}}
+\def\tikzcross{\tikz[baseline=2.5pt]{\node[cross]{};}}
+
+\pgfdeclarelayer{background}
+\pgfdeclarelayer{foreground}
+\pgfsetlayers{background,main,foreground}
+
+\hyphenation{}
+
+\makeatletter\def\blfootnote{\xdef\@thefnmark{}\@footnotetext}\makeatother
+
+\newcommand{\figref}[1]{(\hyperref[#1]{Fig.~\ref*{#1}})}
+\newcommand{\apdref}[1]{(ver \hyperref[#1]{Apéndice~\ref*{#1}})}
+
+\newcommand{\numberthis}{\stepcounter{equation}\tag{\theequation}}
+
+\renewcommand\vector{\vb}
+\newcommand\avect[1]{\vector{a}_{#1}}
+\newcommand\bvect[1]{\vector{b}_{#1}}
+\newcommand\dvect[1]{\vector*{\delta}_{#1}}
+\newcommand\Rvect[1]{\vector{R}_{#1}}
+\newcommand\rvect{\vector{r}}
+\newcommand\kvect{\vector{k}}
+\newcommand\qvect{\vector{q}}
+\newcommand\pvect{\vector{p}}
+
+\newcommand{\SnnInt}[2][-]{e^{#1i\kvect\cdot#2}\bra{\phi_{0}(\rvect)}\ket{\phi_{1}(\rvect - \dvect{1} + #2)}}
+\newcommand{\TnnInt}[2][-]{e^{#1i\kvect\cdot#2}\bra{\phi_{0}(\rvect)}V^\prime(\rvect)\ket{\phi_{1}(\rvect - \dvect{1} + #2)}}
+\newcommand{\TnnnInt}[2][+]{
+	%
+	\def\mainsign{#1}
+	\def\oppositesign{-}
+	\ifx\mainsign\oppositesign\def\oppositesign{+}\else\def\mainsign{}\fi
+	%
+	e^{\mainsign i\kvect\cdot#2}\bra{\phi_{0}(\rvect)}V^\prime(\rvect)\ket{\phi_{0}(\rvect \oppositesign #2)}
+}
+
+\newcommand{\cancelshade}[1]{{\color{black!50}#1}}
+
+\newcommand{\comentario}[2][Ángel]{\textbf{#1} {\itshape\color{gray} #2}}
+
+\allowdisplaybreaks[2]
+
+\let\cleardoublepage=\clearpage

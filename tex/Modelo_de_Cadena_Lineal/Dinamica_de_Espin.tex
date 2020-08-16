@@ -1,0 +1,89 @@
+\section{Zeeman splitting and spin dynamics}
+
+Un tipo de sistema interesante son los ferromagnétos, donde el espín de sus electrones itinerantes interactúan con los momentos  magnéticos localizados típicamente en los orbitales $d$. Para describir esta situación, vamos a suponer que el sistema es ferromagnético y tiene una magnetización homogénea de $\textbf{M}=M_s\hat{u}_{\textbf{M}}$, donde $M_s$ su valor de saturación y $\hat{u}_{\textbf{M}}=(\sin\theta\cos\phi,\sin\theta\sin\phi,\cos\theta)$ su dirección definida por los ángulos $\phi$ y $\theta$. Luego, asumiremos que la magnetización se acopla con los electrones por medio de una interacción de intercambio cuantificada por el parámetro $J_{\rm Ex }$. Vamos a suponer ademas que el sistema puede ser modelado por una cadena lineal de primeros vecinos, en este caso, el Hamiltoniano es dado por:
+\begin{equation}{\label{eq:lc_HAM_Zeeman}}
+	\widehat{H} = \widehat{H}_0+\widehat{H}_{ex},
+\end{equation}
+donde
+\begin{equation}
+	\widehat{H}_0 =- t  \sum_{i,s} \bqty{\ketbra{x_i + a,s}{x_i,s} + \ketbra{x_i,s}{x_i + a,s}},
+\end{equation}
+representa la componente orbital, con $t$ el hopping de primeros vecinos. Luego, 
+\begin{equation}
+	\widehat{H}_{\rm ex} =-J_{\rm ex }  \sum_{i,s,s'} (\hat{u}_{\textbf{M}}\cdot \vector{\sigma})_{s,s'}\ket{x_i,s}\bra{x_i,s'} 
+\end{equation}
+representa a la interacción de intercambio, donde $ \vector{\sigma}=\sigma_x \hat{\vector x} + \sigma_y \hat{\vector y} + \sigma_z \hat{\vector z} $ es el vector de Pauli y 
+\begin{align*}
+	\sigma_0 = \mathbbm1_{2\times2}&= \bmqty{\pmat{0}}, & \sigma_x = \sigma_1 &= \bmqty{\pmat{x}}, & \sigma_y = \sigma_2 &= \bmqty{\pmat{y}}, & \sigma_z = \sigma_3 &= \bmqty{\pmat{z}},
+\end{align*}
+son operadores conocidos como matrices de Pauli que describen la polarización del espín. $s=\pm 1$ identifica a los autovalores de la matriz de Pauli $\sigma_z$, 
+
+El elemento  $\widehat{H}_0$ es diagonal en el espacio de espín, por lo tanto, su representación en el espacio es idéntica a la realizada anteriormente \eqref{eq:LC-kHAM}.
+La representación del Hamiltoniano en el espacio $k$ sería
+\begin{align*}
+	\widehat{H}_0 = \sum_{k, s} \ketbra{k, s} \varepsilon(k) ,
+\end{align*}
+con $\varepsilon(k)= -2t \cos(ka) $ la relación de dispersión de la cadena lineal.
+
+Por otro lado, el término $\widehat{H}_{\rm ex}$ es diagonal proporcional a la identidad en el espacio de las posiciones por lo que es invariante ante una transformada de Fourier, permaneciendo idéntico en la nueva base
+\begin{align*}
+	\widehat{H}_{\rm ex}  = -J_{\rm ex } \sum_{k, s} \ket{k,s}\bra{k, s'} (\hat{u}_{\textbf{M}}\cdot \vector{\sigma})_{s,s'} ,
+\end{align*}
+
+Nuestra intención es determinar la 
+evolución macroscópica en el tiempo de la $i$-ésima componente del vector de spin, una vez que se inyecta una distribución de electrones fuera del equilibrio polarizada en la dirección $\hat{u}_{q}=(\sin\gamma\cos\varphi,\sin\gamma\sin\varphi,\cos\gamma)$ a un nivel de Fermi $E_{\rm F}$ dado. 
+
+Para esto, determinaremos el valor esperado en la representación de Heisenberg:
+\begin{equation}
+	\langle \hat{S}_i(E_{\rm{F}},\gamma,\varphi,t) \rangle = \operatorname{Tr}\left[\widehat{U}^\dagger(t)\hat{S}_i \widehat{U}(t)  \hat{\rho}(E_{\rm{F}},\gamma,\varphi) \right],
+\end{equation}
+donde 
+\begin{equation}\label{eq:spinOP}
+	\widehat{S}_i(E_{\rm F}) = \frac{\hbar}{2}\sigma_i,
+\end{equation}
+el operador de espín,  $\widehat{U}(t) = \exp(\frac{i\widehat{H}t}{\hbar}) $ el operador de evolución temporal, y $ \hat{\rho}(E_{\rm{F}})$ la matriz densidad.  La ventaja de utilizar la representación de Heisenberg por sobre la Schrödinger proviene del hecho de que la primera permite de extender los resultados a muchos cuerpos de forma directa, mientras que la segunda el proceso es mucho mas complejo. Para nuestro caso consideraremos la siguiente matriz densidad
+\begin{equation}
+	\hat{\rho}{(E_{\rm{F}},\gamma,\varphi) = P(\gamma,\varphi)\delta(\widehat{H}- E_{\rm F} )P(\gamma,\varphi)},
+\end{equation}
+donde $P(\gamma,\varphi)=\ket{s,\gamma,\varphi} \bra{s,\gamma,\varphi}$ el operador proyección de spin con autovalor $s=\pm 1$ en la dirección $\hat{u}_{q}$. Esta matriz densidad   se utiliza para representar el hecho de que los únicos electrones móviles son los que viven en el nivel de Fermi, y a estos se les está dotando con una polarización inicial.  Como $\widehat{H}_{\rm ex}$ conmuta con $\widehat{H}_{0}$, la fórmula  de Baker-Campbell-Hausdorff nos indica que podemos factorizar el operador evolución
+\begin{equation}%\label{eq:tempEvOP}
+	\widehat{U}(t) = \widehat{U}_0(t)\exp(\frac{i\widehat{H}_{\rm ex}t}{\hbar}), 
+\end{equation}
+donde hemos definido $\widehat{U}_0(t)\equiv\exp(\frac{i\widehat{H}_{0}t}{\hbar})$. Con lo que, si escogemos la base de los momentos y $\sigma_z$ para calcular la traza nos permite escribir:
+\begin{multline}
+	\langle \hat{S}_i(E_{\rm{F}},\gamma,\varphi,t) \rangle = \sum_{k, s} \bra{k, s}\exp(-\frac{i\widehat{H}_{\rm ex}t}{\hbar})\widehat{U}^\dagger_0(t)\hat{S}_i \widehat{U}_0(t)\exp(\frac{i\widehat{H}_{\rm ex}t}{\hbar}) \\ P(\gamma,\varphi)\delta(\widehat{H} - E)P(\gamma,\varphi)\ket{k, s},
+\end{multline}
+donde si usamos la unitariedad de $\widehat{U}_0(t)$ y el hecho de que conmuta con el operador de espín \apdref{ap:commU0S}, obtenemos
+\begin{equation}
+	\langle \hat{S}_i(E_{\rm{F}},t) \rangle = \sum_{k, s} \bra{ s}\exp(-\frac{i\widehat{H}_{\rm ex}t}{\hbar})\hat{S}_i \exp(\frac{i\widehat{H}_{\rm ex}t}{\hbar}) P(\gamma,\varphi)\delta\left (\varepsilon(k) -J_{\rm ex} \hat{u}_{\textbf{M}}\cdot \vector{\sigma}  -E\right)P(\gamma,\varphi) \ket{s}.
+\end{equation}
+donde ademas usamos el hecho de que la delta de Dirac es diagonal en el espacio de momentos.
+
+Ahora bien, si definimos $\Theta \equiv -J_{\rm ex} t /\hbar$, y $\sigma_u = \hat{u}_{\textbf{M}}\cdot \vector{\sigma}$, podemos demostrar entonces que \apdref{ap:spinRotOP}
+\begin{equation}
+	\exp(\frac{i\widehat{H}_{\rm ex}t}{\hbar}) = R_u(\Theta)  
+\end{equation}
+donde $R_u(\Theta)= \exp(i\Theta s_u )$ no es más que el operador de rotación en la dirección definida por la magnetización cuyo ángulo de rotación depende del tiempo, el cual se puede expresar en términos de las matrices de Pauli como:
+\begin{equation}
+	R_u(\Theta) = \cos \Theta  +i \sigma_{u}\sin\Theta . 
+\end{equation}
+Por lo que vemos entonces que el papel de la magnetización es hacer el espín precesar. 
+
+\subsection{Magnetización en $ \hat{\vector z} $}
+
+En este caso tenemos
+\begin{equation}\label{eq:S_EV:magZpre}
+	\expval{\hat{S}_i(E_{\rm{F}},t)} = \sum_{k, s} \exp(\frac{i J_{\rm ex }s t}{\hbar}) \bra{ s}\hat{S}_i \exp(\frac{i\widehat{H}_{\rm ex}t}{\hbar})P(\gamma,\varphi) \delta\left (\varepsilon(k) -J_{\rm ex} \sigma_z  -E\right)P(\gamma,\varphi)\ket{s}.
+\end{equation}
+
+\subsubsection{Inyección en $ \hat{\vector z} $}
+Si la inyección ocurre en $z$ se tiene que $P(0,0)=\ket{+}\bra{+}$, por lo que el vector espín será \apdref{ap:S_EV:magZ}
+\begin{equation}
+	\langle \hat{\vector{S} }(E_{\rm{F}},t) \rangle = \sum_k\delta\left (\varepsilon(k) -J_{\rm ex} -E\right) \hat{\vector z}.
+\end{equation}
+
+\subsubsection{Inyección en $ \hat{\vector x} $}
+Si la inyección ocurre en $x$ se tiene que $P(\frac{\pi}{2},0) = \ketbra{+, \frac{\pi}{2}, 0}$, por lo que el vector espín será
+\begin{equation}
+	\expval{\vector{\hat{S}}(E_{\rm{F}},t)} = \frac{1}{2} \left[ \Re{\exp(\frac{2i J_{\rm ex } t}{\hbar})} \hat{\vector x} + \Im{\exp(\frac{2i J_{\rm ex } t}{\hbar})} \hat{\vector y} \right]  \smashoperator{\sum_{k, s}} \delta\left(\varepsilon(k) - sJ_{\rm ex} -E \right).
+\end{equation}

@@ -1,0 +1,37 @@
+\chapter{Operador de Espín para la Cadena Lineal Magnetizada en z}
+\label{ap:S_EV:magZ}
+
+Antes de desarrollar la expresión de la magnetización en $ \hat{\vector z} $ para inyecciones en $ x $ y $ \hat{\vector z} $, es de utilidad definir los elementos de matriz del vector de Pauli en la base de $ \sigma_z $,
+\begin{align*}
+	\matrixel{s}{ \vector{\hat{S}} }{s'} &= \matrixel{s}{\hat{S}_x}{s'} \hat{\vector x} + \matrixel{s}{\hat{S}_y}{s'} \hat{\vector y} + \matrixel{s}{\hat{S}_z}{s'} \hat{\vector z}, \\
+	\matrixel{s}{ \vector{\hat{S}} }{s'} &= (1 - \delta^s_{s'}) \hat{\vector x} + s'i(1- \delta^s_{s'}) \hat{\vector y} + s\delta^s_{s'} \hat{\vector z}, \\ 
+	\matrixel{s}{ \vector{\hat{S}} }{s'} &= (1 - \delta^s_{s'}) ( \hat{\vector x} + s'i \hat{\vector y}) + s\delta^s_{s'}\hat{\vector z}.
+\end{align*}
+Con esta cantidad definida, podemos reescribir cómodamente la expresión de el valor esperado para operador de espín dada una magnetización en $ \hat{\vector z} $ \eqref{eq:S_EV:magZpre}
+\begin{align*}
+	\expval{\hat{\vector S}(E_{\rm{F}},t)} &= \sum_{k, s} \exp(\frac{i J_{\rm ex }s t}{\hbar}) \bra{ s}\hat{\vector S} \exp(\frac{i\widehat{H}_{\rm ex}t}{\hbar})P(\gamma,\varphi) \delta\left (\varepsilon(k) -J_{\rm ex} \sigma_z  -E\right)P(\gamma,\varphi)\ket{s}, \\
+	\intertext{Aplicando la relación de completitud en la base de $ \sigma_z $ y escribiendo la matriz de la delta de Dirac según \eqref{eq:magZProjOP},}
+	\expval{\vector{\hat{S}}(E_{\rm{F}},t)} &= \smashoperator{\sum_{k, s, s'}} \exp(\frac{i J_{\rm ex } t (s - s')}{\hbar}) \matrixel{s}{ \vector{\hat{S}} }{s'} \bra{s'} P(\gamma, \varphi) \sum_{s''} \ket{s''} \delta\left(\varepsilon(k) - s''J_{\rm ex} -E \right) \bra{s''} P(\gamma, \varphi) \ket{s},\numberthis
+\end{align*}
+queda entonces una expresión general para las distintas inyecciones electrónicas definidas por $ (\gamma, \varphi) $.
+
+\section{Inyección en $\hat{\vector z}$}
+La inyección en $ \hat{\vector z} $ implica que $ P(0, 0) = \ketbra{+} $, por lo cual
+\begin{align*}
+	\expval{\vector{\hat{S}}(E_{\rm{F}},t)} &= \smashoperator{\sum_{k, s, s', s''}} \exp(\frac{i J_{\rm ex } t (s - s')}{\hbar}) \matrixel{s}{ \vector{\hat{S}} }{s'} \braket{s'}{+} \braket{+}{s''} \delta\left(\varepsilon(k) - s''J_{\rm ex} -E \right) \braket{s''}{+} \braket{+}{s}, \\
+	\expval{\vector{\hat{S}}(E_{\rm{F}},t)} &= \smashoperator{\sum_{k, s, s', s''}} \delta^s_+\delta^{s'}_+\delta^{s''}_+ \exp(\frac{i J_{\rm ex } t (s - s')}{\hbar}) \left[(1 - \delta^s_{s'}) ( \hat{\vector x} + s'i \hat{\vector y}) + s\delta^s_{s'}\hat{\vector z}\right] \delta\left(\varepsilon(k) - s''J_{\rm ex} -E \right), \\
+	\expval{\vector{\hat{S}}(E_{\rm{F}},t)} &= \smashoperator{\sum_{k}} \delta\left(\varepsilon(k) - J_{\rm ex} -E \right) \hat{\vector z}. \numberthis
+\end{align*}
+
+
+\section{Inyección en $\hat{\vector x}$}
+La inyección en $ \hat{\vector x} $ implica que $ P(\frac{\pi}{2}, 0) = \ketbra{+, \frac{\pi}{2}, 0} = \ketbra{+, \hat{\vector x}} $, por lo cual
+\begin{align*}
+	\expval{\vector{\hat{S}}(E_{\rm{F}},t)} &= \smashoperator{\sum_{k, s, s', s''}} \exp(\frac{i J_{\rm ex } t (s - s')}{\hbar}) \matrixel{s}{ \vector{\hat{S}} }{s'} \braket{s'}{+, \hat{\vector x}} \braket{+, \hat{\vector x}}{s''} \delta\left(\varepsilon(k) - s''J_{\rm ex} -E \right) \braket{s''}{+, \hat{\vector x}} \braket{+, \hat{\vector x}}{s}, \\
+	\intertext{para los autovectores de las matrices de Pauli, se tiene que $ \braket{s}{+, \hat{\vector x}} = \braket{+, \hat{\vector x}}{s} = \frac{1}{\sqrt2}$ por lo cuál la expresión anterior se reduce a}
+	\expval{\vector{\hat{S}}(E_{\rm{F}},t)} &= \frac{1}{4}\smashoperator{\sum_{k, s, s', s''}} \exp(\frac{i J_{\rm ex } t (s - s')}{\hbar}) \matrixel{s}{ \vector{\hat{S}} }{s'} \delta\left(\varepsilon(k) - s''J_{\rm ex} -E \right), \\
+	\expval{\vector{\hat{S}}(E_{\rm{F}},t)} &= \frac{1}{4}\smashoperator{\sum_{k, s, s', s''}} \exp(\frac{i J_{\rm ex } t (s - s')}{\hbar}) \left[(1 - \delta^s_{s'}) ( \hat{\vector x} + s'i \hat{\vector y}) + s\delta^s_{s'}\hat{\vector z} \right] \delta\left(\varepsilon(k) - s''J_{\rm ex} -E \right), \\
+	\expval{\vector{\hat{S}}(E_{\rm{F}},t)} &= \frac{1}{4}\smashoperator{\sum_{s}} \left[ \exp(\frac{s2i J_{\rm ex } t}{\hbar}) ( \hat{\vector x} - si \hat{\vector y}) + s\hat{\vector z} \right] \smashoperator{\sum_{k, s''}} \delta\left(\varepsilon(k) - s''J_{\rm ex} -E \right), \\
+	\expval{\vector{\hat{S}}(E_{\rm{F}},t)} &= \frac{1}{4} \left[ \exp(\frac{2i J_{\rm ex } t}{\hbar}) ( \hat{\vector x} - i \hat{\vector y}) + \exp(\frac{-2i J_{\rm ex } t}{\hbar}) ( \hat{\vector x} + i \hat{\vector y}) + \hat{\vector z} - \hat{\vector z} \right]  \smashoperator{\sum_{k, s''}} \delta\left(\varepsilon(k) - s''J_{\rm ex} -E \right), \\
+	\expval{\vector{\hat{S}}(E_{\rm{F}},t)} &= \frac{1}{2} \left[ \Re{\exp(\frac{2i J_{\rm ex } t}{\hbar})} \hat{\vector x} + \Im{\exp(\frac{2i J_{\rm ex } t}{\hbar})} \hat{\vector y} \right]  \smashoperator{\sum_{k, s}} \delta\left(\varepsilon(k) - sJ_{\rm ex} -E \right). \numberthis
+\end{align*}

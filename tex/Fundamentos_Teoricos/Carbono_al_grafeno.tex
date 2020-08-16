@@ -1,0 +1,130 @@
+\section{Del carbono al grafeno: orbitales y enlaces}
+
+Para comprender el razonamiento detrás de los métodos y consideraciones que se 
+aplican en el cálculo a proceder, es necesario comprender la estructura y las 
+características fundamentales del grafeno.
+
+El carbono es el elemento del cual se constituye, su número atómico $ \mathcal{Z} = 
+6 $ implica la presencia de 6 protones en el núcleo, $ \mathcal A $ neutrones y 6 
+electrones; en su isotopo más abundante (\textsuperscript{12}C) el carbono presenta 
+$ \mathcal{A} = 6 $ neutrones.
+
+La configuración electrónica del carbono en su estado base es de $ 1s^{2}, 2s^{2}, 
+2p^{2} $,  sin embargo, al momento de realizar enlaces con otros átomos, es más 
+energéticamente favorable una configuración electrónica excitada de $ 1s^{2}, 
+2s^{1}, 2p^{3} $, (un electrón para cada orbital del segundo número cuántico 
+energético $ 2s, 2p_x, 2p_y, 2p_z $), esto debido a que la ganancia energética del 
+enlace formado es mayor que la energía requerida para pasar un electrón del orbital 
+$ 2s $ a un orbital $ 2p $. 
+
+De modo que en el estado excitado los electrones se encuentran en 4 distintos 
+estados mecánico-cuánticos: $ \ket{2s}, \ket{2p_x}\ket{2p_y}, \ket{2p_z} $. La 
+superposición de un estado $ \ket{2s} $ con $ n $ estados $ \ket{2p_j} $ es lo que 
+se conoce como la hibridación $ sp^n $; para el grafeno específicamente es de 
+nuestro interés estudiar la hibridación $ sp^2 $.
+
+La hibridación $ sp^2 $ se describe entonces por la superposición de el orbital $ 2s 
+$ con 2 orbitales $ 2p $, arbitrariamente se asumirá que los orbitales involucrados 
+son los $ 2p_x $ y $ 2p_y $, y la superposición de los estados mecánico-cuánticos se 
+expresan de la siguiente forma:
+
+\begin{subequations}
+	\begin{align}
+	\ket{sp_1^2} &= \frac{1}{\sqrt3}\ket{2s} - \sqrt{\frac{2}{3}}\ket{2p_y} \\
+	\ket{sp_2^2} &= \frac{1}{\sqrt3}\ket{2s} + 
+	\sqrt{\frac{2}{3}}\pqty{\frac{\sqrt3}{2}\ket{2p_x} + \frac{1}{2}\ket{2p_y}}\\
+	\ket{sp_3^2} &= -\frac{1}{\sqrt3}\ket{2s} + 
+	\sqrt{\frac{2}{3}}\pqty{-\frac{\sqrt3}{2}\ket{2p_x} + \frac{1}{2}\ket{2p_y}}
+	\end{align}
+\end{subequations}
+
+Estos orbitales son co-planares, para este caso específico sobre el plano $ xy $ y 
+están separados por un ángulo de \unit{120}{\degree} \figref{fig:sp2}. El orbital $ 
+2p $ que no participa en la hibridación no se ve afectado por la misma y 
+espacialmente se encuentra perpendicular al plano formado por los demás orbitales, 
+en este caso el orbital $ 2p_z $ se encuentra sobre el eje $ z $. 
+\begin{figure}[htb]
+	\Centering
+	\subcaptionbox[Hibridación $ sp^2 $]{\label{fig:sp2} Representación esquemática 
+		de un átomo de carbono con sus orbitales resultantes de la hibridación $ 
+		sp^2 $.}[0.49\linewidth]
+	{\begin{tikzpicture}
+		
+		\foreach \i/\j/\name in {30/120/2, 150/60/3, 270/0/1}
+		\draw[fill=blue!30] (0, 0) ..controls ($(\i:1.25)+(\j:-0.625)$) and 
+		($(\i:1.25)+(\j:0.625)$) .. cycle -- (\i:1.25) node[fill=white, inner 
+		sep=0pt, pos=1.125] {$ sp^2_\name $};
+		
+		\draw (0, -0.35cm) arc [start angle=270, delta angle=120, radius=0.35cm] 
+		node[midway, anchor=north west, inner sep=0pt] {\unit{120}{\degree}};
+		
+		\draw [radius=0.1cm, fill=black!70] (0, 0) circle; 
+		
+		\path (0, -2.75);
+	
+	\end{tikzpicture}}
+	\subcaptionbox[Grafeno y sus enlaces atómicos]{\label{fig:honeycomb} Esquema de 
+		una estructura básica de grafeno con sus enlaces atómicos correspondientes}
+	[0.49\linewidth]
+	{\begin{tikzpicture}
+		
+		\begin{pgfonlayer}{foreground}
+		\begin{scope}[radius=0.1cm, fill=black!70]
+		
+		\foreach \i [evaluate=\i as \istep using int(\i/2)] in {1,...,5}
+		\foreach \j in {0,1}{
+			\pgfmathsetmacro\modij{int(mod(\i+\j, 2))}
+			\ifnum\modij=0
+			\def\point{(triangular cs:x=\istep, y=\j) coordinate (S-\istep-\j)}
+			\else
+			\def\point{(triangular cs:x=\istep, y=\j, graphene) coordinate (SG-\istep-\j)}
+			\fi
+			\filldraw \point circle;}
+		\filldraw (triangular cs:x=1, y=-1) coordinate (S-1--1) circle;
+		\filldraw (triangular cs:x=1, y=2, graphene) coordinate (SG-1-2) circle;
+		
+		\end{scope}
+		\end{pgfonlayer}
+		
+		\draw[semithick]
+		(SG-0-0) -- (S-1-0) -- (SG-1-0) -- (S-2-0) -- (SG-2-0)
+		(S-0-1) -- (SG-1-1) -- (S-1-1) -- (SG-2-1) -- (S-2-1)
+		(S-1-0) -- (SG-1-1)
+		(SG-1-0) -- (S-1--1)
+		(S-2-0) -- (SG-2-1)
+		(S-1-1) -- (SG-1-2);
+		
+		\draw[red, decoration={brace, amplitude=5.5pt}, decorate] (S-1-1) -- (SG-1-2) node[midway, right=4pt] {$ a = \unit{0,142}{\nano\metre} $};
+		
+		\draw (S-2-0) +(0, -0.35cm) arc [start angle=270, delta angle=120, radius=0.35cm] node[midway, anchor=north west, inner sep=0pt] {\unit{120}{\degree}};
+		
+		\draw[radius=0.7\graphenespace, loosely dashed, delta angle=185]
+		($(SG-0-0)!0.5!(S-0-1)$) +(90:-0.7\graphenespace) arc [start angle=270]
+		($(SG-0-0)!0.5!(S-1--1)$) +(30:-0.7\graphenespace) arc [start angle=210]
+		($(S-1--1)!0.5!(SG-2-0)$) +(150:0.7\graphenespace) arc [start angle=150]
+		($(SG-2-0)!0.5!(S-2-1)$) +(90:0.7\graphenespace) arc [start angle=90]
+		($(S-2-1)!0.5!(SG-1-2)$) +(30:0.7\graphenespace) arc [start angle=30]
+		($(SG-1-2)!0.5!(S-0-1)$) +(150:-0.7\graphenespace) arc [start angle=330]
+		($(S-1-0)!0.5!(SG-2-1)$) circle;
+		
+		\path (triangular cs:x=0, y=1) +(0,-1.25\graphenespace) node[anchor=north west] (bond) {Enlaces: };
+		\draw[thick] (bond.east) -- +(0.6,0) node[anchor=west] (sigma) {$ \sigma $};
+		\draw[loosely dashed] ([xshift=0.15cm]sigma.east) -- +(0.7,0) node[anchor=west] {$ \pi $}; 
+	\end{tikzpicture}}
+	
+	\caption{Formación del grafeno como consecuencia de las propiedades de enlace químico del carbono.}
+\end{figure}
+
+En el caso del grafeno, cada orbital $ sp^2 $ forma (fuertes) enlaces $ \sigma $ con 
+los respectivos orbitales $ sp^2 $ de los carbonos adyacentes, mientras que los 
+orbitales $ 2p_z $ restantes forman los (más débiles) enlaces $ \pi $ 
+des-localizados\footnote{Popularmente conocidos como resonantes, de modo que el 
+	grafeno se clasifica como una estructura de contribución o híbrido resonante}; 
+ambos enlaces resultan en una distancia ínter-atómica $ a = 
+\unit{0,142}{\nano\metre} $\footnote{Aproximadamente el promedio entre un enlace $ 
+	\sigma $ simple (C-C) y un enlace $\sigma$ doble (C=C), debido a que los enlaces 
+	resonantes son una superposición de estos dos enlaces}. Todo esto es lo que 
+finalmente producen en el grafeno su característica estructura hexagonal \emph{``de 
+	red de panal de abeja"} \figref{fig:honeycomb} a su vez que sus resaltantes 
+propiedades físicas y eléctricas, estas últimas siendo el primordial interés del 
+presente trabajo.

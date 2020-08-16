@@ -1,0 +1,11 @@
+\chapter[Conmutador $ \comm{\widehat{U}_0}{\hat{S}_i} $ para la cadena lineal]{Conmutador de los Operadores de Evolución Temporal de la Cadena Lineal y Espín}
+\label{ap:commU0S}
+	
+\begin{align*}
+	\comm{\widehat{U}_0}{\hat{S}_i} &= \frac{\hbar}{2}\comm{\exp(\frac{i\widehat{H}_0t}{\hbar})}{\sigma_i}, \\ 
+	\comm{\widehat{U}_0}{\hat{S}_i} &= \frac{\hbar}{2}\left[\sum_k\ketbra{k}\exp(\frac{i\epsilon(k)t}{\hbar})\sigma_0\sigma_i - \sigma_i\sum_k\ketbra{k}\exp(\frac{i\epsilon(k)t}{\hbar})\sigma_0\right], \\ 
+	\intertext{Recordando que $ \sigma_0 = \mathbbm1_{2\times2} $, entonces}
+	\comm{\widehat{U}_0}{\hat{S}_i} &= \frac{\hbar}{2}\sum_k\ketbra{k}\left[\exp(\frac{i\epsilon(k)t}{\hbar})\sigma_i - \exp(\frac{i\epsilon(k)t}{\hbar})\sigma_i\sigma_0\right], \\ 
+	\comm{\widehat{U}_0}{\hat{S}_i} &= 0. 
+	\numberthis\label{eq:commU0S}
+\end{align*}

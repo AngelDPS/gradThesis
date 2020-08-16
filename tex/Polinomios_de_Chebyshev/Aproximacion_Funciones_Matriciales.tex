@@ -1,0 +1,14 @@
+\section[Aproximación de funciones matriciales]{Aproximación de funciones matriciales}
+Dada una matriz \emph{normal} $\mathbf A$, siguiendo el teorema de descomposición espectral compleja, se tiene que 
+\begin{equation*}\mathbf A = \sum_{i=1}^r \lambda_i \mathbf P_i, \end{equation*}
+donde $\{\lambda_i\}_{i=1}^r$ son los autovalores de $\mathbf A$ con operadores de proyección $\mathbf P_i$ hacia cada autoespacio $\mathcal M_i$. Esto implica que para cualquier función $f$ expandible en series de potencias
+
+\begin{align*} 
+	f(\mathbf A) &= \sum_{i=1}^r f(\lambda_i) \mathbf P_i,\\
+	\intertext{ahora se puede aproximar $f$ mediante una expansión en polinomios de Chebyshev de primera especie}
+	f(\mathbf A) &\sim \sum_{i=1}^r \sum_{n=0}^\infty \bar{f}_n g_n T_n(\lambda_i) \mathbf P_i
+	&&\iff f \in \mathcal{L}^2_{(1-x^2)^{-\frac12}} (-1, 1) \land \{\lambda_i\}_{i=1}^r \in [-1, 1],\\
+	\intertext{conmutando las sumatorias y reduciendo, se tiene que}
+	f(\mathbf A) &\sim \sum_{n=0}^\infty \bar{f}_n g_n T_n(\mathbf A) 
+	&&\iff f \in \mathcal{L}^2_{(1-x^2)^{-\frac12}} (-1, 1) \land \{\lambda_i\}_{i=1}^r \in [-1, 1].
+\end{align*}

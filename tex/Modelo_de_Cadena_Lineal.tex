@@ -1,0 +1,65 @@
+\chapter{Modelo de Cadena Lineal Mono-Atómica}
+
+Como primer modelo a analizar, se utilizará un sólido cristalino mono-atómico de una sola dimensión (cadena lineal) \figref{fig:LCscheme}. 
+
+\begin{figure}
+	\centering
+	\begin{tikzpicture}[atom site/.style = {circle, draw=red, thick, fill=red!50}]
+	\foreach \i in {0, 1, 2}{
+		\node[atom site] at ($\i*(1.75, 0)$) ["$x_\i$" below] (x-\i) {$\epsilon_0$};
+	}
+	\node at ($(x-2) + (0.875, 0)$) {$\cdots$};
+	\node[atom site] at ($3*(1.75, 0)$) ["$x_i$" below] (x-4) {$\epsilon_0$};
+	\node at ($(x-4) + (0.875, 0)$) {$\cdots$};
+	\node[left=2mm of x-0] {$\cdots$};
+	\foreach \i/\j in {0/1, 1/2}{
+		\draw[Bar-Bar] ($(x-\i.center) - (0, .25)$) -- node[fill=white] {$a$} ($(x-\j.center) - (0, .25)$);
+		\draw[Latex-Latex] 
+		(x-\i.north) 
+		.. controls ($(x-\i.north)!.25!(x-\j.north) + (0, .25)$) and ($(x-\i.north)!.75!(x-\j.north) + (0, .25)$) .. 
+		(x-\j.north) 
+		node[midway, fill=white] {$t$};
+	}
+	\end{tikzpicture}
+	\caption{Esquema de una cadena lineal mono-atómica, con una distancia inter-atómica $a$, energía in-situ $\epsilon_0$ y una amplitud de salto entre vecinos cercanos $t$.\label{fig:LCscheme}}
+\end{figure}
+
+Dicho sistema se describe por el siguiente hamiltoniano de enlace fuerte
+\begin{equation}\label{eq:LC-TBHam}
+\widehat{H} = 
+\epsilon_0 \sum_{i=0}^{\infty} \ket{x_i}\bra{x_i} 
+- t \sum_{i=0}^{\infty} \bqty{\ket{x_i + a}\bra{x_i} + \ket{x_i}\bra{x_i + a}},
+\end{equation}
+De aquí en adelante se asume una energía in-situ nula ($\epsilon_0 = 0$).
+
+A este hamiltoniano se le hace un cambio de base, del espacio real ($\ket{x_i}$) al espacio recíproco ($\ket{k_j}$) mediante las relaciones
+\begin{gather}
+\sum_{k} \ket{k}\bra{k} = 1, \label{eq:k-completness}\\
+\bra{x}\ket{k} = e^{ixk}; \label{eq:k-eigenfunction}
+\end{gather}
+de modo que
+\begin{align*}
+\widehat{H} &= 
+- t \sum_{i} \ket{x_i + a}\bra{x_i} + \ket{x_i}\bra{x_i + a},
+\\\intertext{aplicando la relación de completitud \eqref{eq:k-completness}}
+\widehat{H} &= 
+- t \sum_{i,k,q} \bqty{\ket{k}\bra{k}\ket{x_i + a}\bra{x_i}\ket{q}\bra{q} 
+	+ \ket{k}\bra{k}\ket{x_i}\bra{x_i + a}\ket{q}\bra{q}},
+\\\intertext{y sustituyendo las autofunciones del número de onda \eqref{eq:k-eigenfunction}, se obtiene}
+\widehat{H} &= 
+- t \sum_{i,k,q} \bqty{\ket{k}e^{-ik(x_i + a)}e^{iqx_i}\bra{q} + \ket{k}e^{-ikx_i}e^{iq(x_i + a)}\bra{q}},\\
+\widehat{H} &= 
+- t \sum_{k,q}\ket{k}\bra{q} \pqty{e^{iqa} + e^{-ika}} \sum_{i} e^{i(q-k)x_i}.\\
+\intertext{La sumatoria $\sum_{i} e^{i(a-b)c_i}$ corresponde a la delta de kroneker $\delta^a_b$}
+\widehat{H} &= 
+- t \sum_{k,q}\ket{k}\bra{q} \pqty{e^{iqa} + e^{-ika}} \delta^q_k,\\
+\widehat{H} &= 
+- t \sum_{k}\ket{k}\bra{k} \pqty{e^{ika} + e^{-ika}},\\
+\widehat{H} &= \sum_{k}\ket{k}\bra{k} \pqty{-2t\cos(ka)},
+\\\intertext{finalmente se establecen los autovalores $-2t\cos(ka) = \varepsilon(k)$, tal que}
+\widehat{H} &= \sum_{k}\ket{k}\bra{k} \varepsilon(k). \numberthis\label{eq:LC-kHAM}
+\end{align*}
+
+\input{./tex/Modelo_de_Cadena_Lineal/Conductividad}
+	
+\input{./tex/Modelo_de_Cadena_Lineal/Dinamica_de_Espin}

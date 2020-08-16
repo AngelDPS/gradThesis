@@ -1,0 +1,21 @@
+\chapter{Operador de Rotación de Espín}
+\label{ap:spinRotOP}
+
+\begin{align*}
+	\exp(\frac{i\widehat{H}_{\rm ex}t}{\hbar}) &= \exp(\frac{-iJ_{\rm ex}t}{\hbar} \sum_{s} \ketbra{s}{s'} (\hat{u}_{\vector{M}} \cdot \vector{\sigma})_{s, s'}), \\
+	\intertext{definiendo $ \Theta(t) \equiv \frac{J_{\rm ex}t}{\hbar} $ y $ \sigma_{u} \equiv \hat{u}_{\vector{M}} \cdot \vector{\sigma} $} 
+	\exp(\frac{i\widehat{H}_{\rm ex}t}{\hbar}) &= \exp(-i\Theta \sigma_{u}), \numberthis\label{eq:spinRotOP}\\
+	\exp(\frac{i\widehat{H}_{\rm ex}t}{\hbar}) &= \exp(-i\frac{2\Theta}{\hbar} S_{u}),\\
+	\exp(\frac{i\widehat{H}_{\rm ex}t}{\hbar}) &= \widehat{R}_u(2\Theta).
+\end{align*}
+
+(Tengo entendido que el operador de rotación de espín es $ \widehat{R}(\vector{\hat{n}}, \theta) = \exp(-i\frac{\theta}{\hbar}\vector{S}\cdot\vector{\hat{n}}) = \exp(-i\frac{\theta}{2} \vector{\sigma}\cdot\vector{\hat{n}}) $. Me causa curiosidad que cuando más arriba defines a $ \Theta $ incluyes el signo y no utilizas el factor de 2. Al final no sería muy distinto.)
+
+La expresión \eqref{eq:spinRotOP} se puede reescribir mediante la ecuación de Euler
+\begin{align*}
+	\exp(-i\Theta \sigma_{u}) &= \cos(\Theta \sigma_{u}) - i\sin(\Theta \sigma_{u}), \\ 
+	\intertext{Tomando en cuenta que las matrices de Pauli poseen autovalores $ s_u = \{+1, -1\} $, entonces}
+	\exp(-i\Theta \sigma_{u}) &= \sum_{s_u} \ketbra{s_u} \cos(\Theta s_u) - i\sum_{s_u} \ketbra{s_u} \sin(\Theta s_{u}), \\ 
+	\exp(-i\Theta \sigma_{u}) &= \sum_{s_u} \ketbra{s_u} \cos(\Theta) - i\sum_{s_u} \ketbra{s_u} s_u \sin(\Theta), \\ 
+	\exp(-i\Theta \sigma_{u}) &= \sigma_0\cos(\Theta) - i\sigma_u \sin(\Theta).
+\end{align*}

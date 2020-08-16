@@ -1,0 +1,74 @@
+\section[Aproximación de la función exponencial]{Aproximación de la función exponencial mediante el KPM.}
+
+Para la función exponencial 
+\begin{equation*}
+	f(x) = e^{izx} \qquad \abs{x} \leq 1,
+\end{equation*}
+aplicando la aproximación \eqref{eq:kpm} se tiene que
+\begin{equation}\label{eq:expChebSeries}
+	e^{izx} \sim \sum_{n=0}^{N} \overline{e^{iz}}_n g_n T_n(x).
+\end{equation}
+Como la función exponencial es infinitamente diferenciable, no presentará oscilaciones de Gibbs, por lo que puede aproximarse con precisión arbitraria aumentando el número de polinomios. Esto significa que podemos escoger $g_n=1$, el cual es conocido como kernel de Dirichlet. Para ganar intuición sobre la aproximación exponencial, consideraremos en primera instancia su aproximación lineal:
+\begin{equation*}
+	e^{ix} \approx 1 + ix \quad \forall \abs{x} \ll 1,
+\end{equation*}
+y tomando en cuenta que los polinomios de Chebyshev para órdenes 0 y 1 corresponden a 
+\begin{gather*}
+	T_0(x) = 1,\\
+	T_1(x) = x,
+\end{gather*}
+entonces la expansión \eqref{eq:expChebSeries} se puede escribir como
+\begin{equation}
+	e^{ix} \approx 1 + ix \sim 
+	[\overline{e^{iz}}]_0\,T_0(x) + [\overline{e^{iz}}]_1\,T_1(x) + \sum_{n=2}^{N}  [\overline{e^{iz}}]_n  T_n(x), \\
+\end{equation}
+de donde se obtiene por comparación directa:
+\begin{equation}
+	[\overline{e^{iz}}]_0 =1,\quad [\overline{e^{iz}}]_1 = i\quad [\overline{e^{iz}}]_n =0.
+\end{equation}
+
+Como esperado, solo se necesitan los dos primeros polinomios aproximar la exponencial para argumentos pequeños. Vamos ahora a proceder a expandir la exponencial para argumento arbitrario, y verifiquemos entonces que los polinomios de Chebyshev permiten expandir de forma muy eficiente de esta función.
+
+Para aplicar formalmente la expansión \eqref{eq:expChebSeries} es necesario entonces desarrollar los 
+coeficientes Chebyshev, previo a ello se procede a desarrollar la expansión de Jacobi-Anger.
+
+Esta identidad se relaciona con una forma integral de las funciones de Bessel de primera 
+especie $\{J_n(z)\}_{n=0}^\infty$ que surgen como solución de la EDO de Bessel \autocite{Hassani2013}
+\begin{equation*}
+	x^2J_n'' + xJ_n' + (x^2 - n^2)J_n = 0.
+\end{equation*}
+
+Mediante su función generadora
+\begin{equation*}
+	e^{\frac{z}{2} \left(t - \frac{1}{t}\right)} = \sum_{n=-\infty}^{\infty} J_n(z)t^n
+\end{equation*}
+se puede obtener su representación integral para órdenes enteros
+\begin{align*}
+	J_n(z) &= \frac{1}{2\pi} \int_{-\pi}^{\pi} e^{in\vartheta - iz\sin\vartheta} d\vartheta\\
+	\intertext{mediante un cambio de variable $\vartheta = \frac{\pi}{2} - \theta$}
+	J_n(z) &= \frac{i^{-n}}{2\pi} \int_{-\frac{\pi}{2}}^{\frac{3\pi}{2}} e^{in\theta - iz\cos\theta} d\theta,
+\end{align*}
+de aquí es fácil apreciar que $i^n J_n(z)$ corresponden a los coeficientes de expansión para la expansión en 
+serie de Fourier de la función periódica
+\begin{equation*}
+	e^{iz\cos\theta} = \sum_{n=-\infty}^{\infty} i^n J_n(z) e^{in\theta}.
+\end{equation*}
+Esta es la expansión de Jacobi-Anger, la cuál, aplicando la propiedad $J_{-n}(z) = (-1)^nJ_n(z)$ se puede reescribir como
+\begin{equation}\label{eq:jacobi-Anger}
+	e^{iz\cos\theta} = J_0(z) + 2\sum_{n=1}^{\infty} i^n J_n(z) \cos(n\theta).
+\end{equation}
+
+De modo que, los coeficientes de $\overline{e^{iz}}_n$, según \eqref{eq:chebyshevCoeff}, se definen como
+\begin{align*}
+	\overline{e^{iz}}_n &= \frac{2 - \delta^n_0}{\pi} \int_{-1}^{1} \frac{e^{izx}T_n(x)}{\sqrt{1-x^2}} dx, \\ 
+	\intertext{aplicando el cambio de variable $x = \cos\theta$ y expandiendo $T_n(x)$ según \eqref{eq:ChebyshevPol}}
+	\overline{e^{iz}}_n &= \frac{2 - \delta^n_0}{\pi} \int_{0}^{\pi} e^{iz\cos\theta}\cos(n\theta) d\theta, \\
+	\intertext{aplicando la expansión de Jacobi-Anger \eqref{eq:jacobi-Anger}}
+	\overline{e^{iz}}_n &= \frac{2 - \delta^n_0}{\pi} \left[ J_0(z) \int_{0}^{\pi} \cos(n\theta) d\theta + \sum_{m=1}^{\infty} i^m J_m(z) \int_{-\pi}^{\pi} \cos(m\theta)\cos(n\theta) d\theta \right]  \\ 
+ 	\overline{e^{iz}}_n &= i^n (2 - \delta^n_0) J_n(z). \\ 
+\end{align*}
+
+Sustituyendo los coeficientes en la aproximación de $e^{izx}$ \eqref{eq:expChebSeries}
+\begin{equation}\label{eq:iexpChebExpan}
+	e^{izx} \sim \sum_{n=0}^{N} i^n (2 - \delta^n_0) g_n J_n(z) T_n(x),
+\end{equation}

@@ -1,0 +1,33 @@
+\section{Polinomios de Chebyshev}
+Llamados así en honor al matemático ruso {Pafnuty Chebyshev} que los desarrolló
+con la intención de ser utilizados en la teoría de aproximaciones, son un conjunto de 
+\emph{Polinomios Ortogonales Clásicos}, que son solución de la equación diferencial de Chebyshev 
+\begin{equation*}
+	(1-x^2) \frac{d^2 y}{d x^2} - x \frac{d y}{d x} + p^2 y = 0.
+\end{equation*}
+
+Dentro de la clasificación como polinomios ortogonales clásicos, con primeros elementos generados por la 
+fórmula de Rodríguez generalizada
+\begin{equation*}
+	F_n(x) = \frac{1}{K_nw(x)} \frac{d^n}{dx^n} \big(w(x)s^n(x)\big) \quad \forall n \in \mathbb N,
+\end{equation*}
+donde $K_n$ es un factor de normalización, $s(x)$ es un polinomio de segundo o menor grado con raíces
+reales, $w(x)$ es una función estrictamente positiva, integrable en el intervalo $(a, b)$ con las
+condiciones de borde $w(a) s(a)=0=w(b) s(b)$, se encuentra la sub-clasificación de los polinomios de
+Jacobi, dados por la elección de $s$ como un polinomio de grado 2, lo cuál implica que $s(x) = x^2 + 1$, 
+$w(x) = (x+1)^\mu (x-1)^\nu$ donde $\mu, \nu > -1$, $a=-1$ y $b=+1$.
+
+Finalmente los polinomios de Chebyshev son una sub-clasificación de los polinomios de Jacobi, existiendo
+primera ($\mu = \nu = -\frac12$) y segunda especie ($\mu = \nu = \frac12$). Es de interés particular para
+lo aquí desarrollado únicamente los de primera especie. Para estos, se tiene que el factor de
+normalización de la fórmula de Rodríguez tiene un valor de 
+\begin{equation*}K_{n}=(-1)^{n} \frac{(2 n) !}{2^{n} n !}\end{equation*}
+lo que implica una expresión trigonométrica para definir los polinomios de Chebyshev mediante funciones trigonométricas
+\begin{equation}\label{eq:ChebyshevPol}
+ T_n(x) = \cos(n\arccos x) \quad \abs{x} \leq 1,
+\end{equation} 
+y la relación de recurrencia de la forma 
+\begin{equation*}\label{eq:chebyshevRecurrence}
+	T_{n+1} = 2xT_n - T_{n-1},
+\end{equation*} donde
+$\{T_n\}_{n=0}^\infty$ son los polinomios de Chebyshev de primera especie.

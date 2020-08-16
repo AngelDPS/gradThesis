@@ -1,0 +1,64 @@
+\section{Fenómenos de Transporte}
+
+Para estudiar la dispersión intervalle en el grafeno es necesario revisar los 
+principios que rigen los fenómenos de transporte en la escala deseada.
+
+La \emph{ecuación de transporte de \textbf{Boltzmann}} describe el comportamiento estadístico de un sistema termodinámico en un estado fuera del equilibrio. La ecuación surge no por el análisis individual de las posiciones y momentos lineales de cada partícula del sistema, sino considerando una distribución de probabilidad para la posición y el momento lineal de una partícula típica, es decir, la probabilidad de que la partícula ocupe una infinitésima región del espacio de posiciones y momentos lineales en un instante de tiempo.
+
+De esta manera se define entonces la función de densidad de probabilidad $ f(\rvect, \pvect, t) $ la cual cumple que 
+\begin{equation}\label{eq:densityDistributionFunction}
+\dd{N}  = f(\rvect, \pvect, t) \dd[3]{\rvect} \dd[3]{\pvect}
+\end{equation}
+donde $ N $ es el número de partículas que tienen posiciones dentro de el volumen $ \dd[3]\rvect $ alrededor de $ \rvect $ y momento lineal dentro del espacio de momento $ \dd[3]\pvect $ alrededor de $ \pvect $, en el instante de tiempo $ t $.
+
+Así que la ecuación de transporte de Boltzmann describe la evolución temporal en el espacio de fase de la función de densidad de probabilidad para una partícula
+\begin{equation}\label{eq:BTE}
+\pdv{f}{t} + \dv{\rvect}{t} \cdot \grad_{\rvect}{f} + \dv{\pvect}{t} \cdot \nabla_{\pvect}{f} = \left\lgroup \pdv{f}{t} \right\rgroup_{\rlap{colisiones}}
+\end{equation} 
+
+El término en el segundo miembro, término dispersivo, corresponde a cambios debido a colisiones, y es la parte más compleja de la ecuación de Boltzmann, si embargo se puede desarrollar mediante teoría perturbacional en la cual aparecen las tasas de transición $ W_i^f $ que describen la probabilidad de que un sistema salte de un estado cuántico inicial $ i $ a un estado final $ f $, ambos accesibles de los sistemas de partículas originales. Esta tasa se define como:
+\begin{equation}\label{eq:goldenRule}
+W(i, f) = \frac{2\pi}{\hbar} \abs{\bra{i}\widehat{H}'\ket{f}}^2 \delta(E_i - E_f)
+\end{equation}
+Donde $ \widehat{H}' $ es una pequeña perturbación energética respecto a la energía estable no interactuante $ \widehat{H}_0 $ tal que la energía total del sistema es $ \widehat{H} = \widehat{H}_0 + \widehat{H}' $. Esta expresión para la tasa de transición se conoce como la \emph{regla dorada de \textbf{Fermi}}.
+
+El término dispersivo de la ecuación de Boltzmann equivale a la ganancia neta de partículas en un estado cuántico, que consiste de dos componentes (las siguientes expresiones se trabajan en regímenes de vectores de ondas en lugar de energías o momentos lineales de forma equivalente):
+\begin{enumerate}
+	\item El incremento de la cantidad de partículas debido a la dispersión desde otros estados cuánticos $ \kvect' $ hacia el estado cuántico en consideración $ \kvect $ \[ + \sum_{\kvect'} f(\rvect, \kvect', t) W(\kvect',\kvect) \]
+	\item El decremento de la cantidad de partículas debido a la dispersión desde el estado cuántico en consideración $ \kvect $ hacia otros estados cuánticos $ \kvect' $ \[ - \sum_{\kvect'} f(\rvect, \kvect, t) W(\kvect,\kvect') \]
+\end{enumerate}
+
+Si se asume que el sistema se rige por el \emph{principio de balance detallado} que establece que \textquote{En el equilibrio, cada proceso elemental debe ser equilibrado por su proceso inverso}, se tiene entonces que \[ W(i, f) = W(f, i) \]
+
+Así que finalmente el término dispersivo se expresa como:
+\begin{equation}\label{eq:BoltzmannColl}
+\left\lgroup\pdv{t} f(\rvect, \kvect, t) \right\rgroup_{c} = \sum_{\kvect'} W(\kvect, \kvect') \bqty{ f(\rvect, \kvect', t) - f(\rvect, \kvect, t) }
+\end{equation}
+
+Sustituyendo esta expresión para el término dispersivo en la ecuación de Boltzmann, se tiene entonces la igualdad
+\begin{equation}\label{eq:BTEexp}
+\pdv{f}{t} + \dv{\rvect}{t} \cdot \grad_{\rvect}{f} + \dv{\pvect}{t} \cdot \nabla_{\pvect}{f} = \sum_{\kvect'} W_{\kvect}^{\kvect'} \bqty{ f(\rvect, \kvect', t) - f(\rvect, \kvect, t) }
+\end{equation}
+
+Es importante resaltar que la expresión obtenida actúa como base general modificable y escalable para diversas situaciones y condiciones.
+
+\subsection{Aproximación de tiempo de relajación}
+
+La sumatoria discreta sobre los vectores de onda del término dispersivo \eqref{eq:BoltzmannColl} se puede convertir en una integración continua sobre el espacio de fase, y al sustituir esto en la ecuación de Boltzmann \eqref{eq:BTE} se obtendría finalmente una ecuación integro-diferencial en $ f $.
+
+Esta ecuación es muy difícil de resolver en general, por lo cuál la mayoría de las soluciones dependen en una drástica simplificación del término dispersivo mediante la aproximación de tiempo de relajación,
+\begin{equation}\label{eq:RTapproximation}
+\left\lgroup \pdv{f}{t} \right\rgroup_{c} = - \frac{f - f_0}{\tau} = -\pqty{ f - f_0 } \Gamma
+\end{equation}
+donde $ \tau $ es el \emph{\textbf{tiempo de relajación}}, $ \Gamma = \tau^{-1} $ es la \emph{tasa de relajación} y $ f_0 $ representa distribución en equilibrio de las partículas, tal como la distribución de Boltzmann, la de Fermi-Dirac, y la de Bose-Einstein.
+
+Esta forma para el término dispersivo asegura que la función de densidad de probabilidad regrese a la distribución en equilibrio si se eliminan todas las fuerzas. Si no hay fuerzas externas ($ \dv{\pvect}{t} = 0 $) y las partículas están distribuidas uniformemente en el espacio ($ \grad_{\rvect}{f} = 0 $), entonces la ecuación de Boltzmann \eqref{eq:BTE} se convierte en:
+\begin{align}\label{eq:freeForceBTE}
+\pdv{f}{t} + \cancelshade{\dv{\rvect}{t} \cdot \grad_{\rvect}{f}} + \cancelshade{\dv{\pvect}{t} \cdot \nabla_{\pvect}{f}} &= - \frac{f(\kvect, t) - f_0(\kvect)}{\tau(\kvect)} \nonumber\\
+\pdv{t} f(\kvect, t)  &= - \frac{f(\kvect, t) - f_0(\kvect)}{\tau(\kvect)}
+\end{align}
+cuya solución viene dada como
+\begin{equation}\label{eq:RTsolution}
+f(\kvect, t) = \bqty{f(\kvect, 0) - f_0(\kvect)}e^{-\frac{t}{\tau(\kvect)}} + f_0
+\end{equation}
+Esta ecuación describe un sistema que comienza en alguna función inicial de densidad de probabilidad fuera del equilibrio $ f(\kvect, 0) $ y vuelve al equilibrio en un tiempo de relajación $ \tau $.

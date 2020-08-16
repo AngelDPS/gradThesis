@@ -1,0 +1,120 @@
+\section{Propiedades características de los Valles de Dirac}
+\subsection{Operador Hamiltoniano efectivo de enlace fuerte}
+
+Partiendo de la matriz Hamiltoniana \eqref{eq:HamiltonianMatrix} se define un operador Hamiltoniano efectivo de enlace fuerte, que para el caso específico del grafeno, tenemos las consideraciones de que es posible fijar $ E_\nu(\kvect) \equiv 0 $ y sustituir entonces la matriz de solapamiento \eqref{eq:TdiagShort} y \eqref{eq:ToffdiagShort}.
+
+\begin{align*}
+	\widehat{H}^\mathrm{eff}(\kvect) &= \mathcal{T}(\kvect) \\ 
+	\widehat{H}^\mathrm{eff}(\kvect) &= \begin{bmatrix}
+	T_{\mathtt{nnn}}\big[\abs{\alpha(\kvect)}^2 - 3\big] & T_{\mathtt{nn}}\alpha^*(\kvect) \\ T_{\mathtt{nn}}\alpha(\kvect) & T_{\mathtt{nnn}}\big[\abs{\alpha(\kvect)}^2 - 3\big]
+	\end{bmatrix} \\ 
+	\widehat{H}^\mathrm{eff}(\kvect) &= T_{\mathtt{nnn}}\big[\abs{\alpha(\kvect)}^2 - 3\big] \underbrace{\begin{bmatrix}1&0\\0&1\end{bmatrix}}_{\mathbbm{1}} + T_{\mathtt{nn}}\begin{bmatrix} 0 & \alpha^*(\kvect) \\ \alpha(\kvect) & 0 \end{bmatrix}\numberthis\label{eq:TBEffHamiltonian}
+\end{align*}
+
+Para obtener los autoestados asociados a nuestro Hamiltoniano efectivo de enlace fuerte, definimos, para facilitar los cálculos, la amplitud de las integrales de salto como nula ($ T_\mathtt{nnn} = 0 $), esto sin perder nuestro resultado esperado ya que al ser proporcional a la matriz unitaria, no afecta significativamente. De forma similar se asume que a las integrales de salto efectivas como nulas ($ T'_\mathtt{nnn} = 0 $).
+
+\begin{subequations}
+	\begin{align*}
+	\widehat{H}^\mathrm{eff}_{T_\mathtt{nnn}=0}\ket{\psi} (\kvect, \rvect) &= E_{\lambda, T'_\mathtt{nnn}=0} \ket{\psi}(\kvect, \rvect) \\
+	\sum_{\nu=0}^{1}\widehat{H}^\mathrm{eff}_{T_\mathtt{nnn}=0}\ket{\Phi_{\nu}}\bra{\Phi_{\nu}}\ket{\psi} (\kvect, \rvect) &= E_{\lambda, T'_\mathtt{nnn}=0} \ket{\psi} (\kvect, \rvect) \\
+	\intertext{Multiplicamos la ecuación por un vector compuesto por las funciones de onda \eqref{eq:blochsum} de cada electrón $ \pi $ en la celda unitaria, cuyos subíndices $ \mu =\{0, 1\} $ corresponden a cada subred dentro de la celda unitaria.}
+	\sum_{\nu=0}^{1} \begin{bmatrix} \bra{\Phi_{0}}\widehat{H}^\mathrm{eff}_{T_\mathtt{nnn}=0}\ket{\Phi_{\nu}} \bra{\Phi_\nu}\ket{\psi} \\ \bra{\Phi_{1}}\widehat{H}^\mathrm{eff}_{T_\mathtt{nnn}=0}\ket{\Phi_{\nu}} \bra{\Phi_\nu}\ket{\psi} \end{bmatrix}
+	(\kvect, \rvect) &= E_{\lambda, T'_\mathtt{nnn}=0}\begin{bmatrix}
+	\bra{\Phi_{0}}\ket{\psi}\\\bra{\Phi_{1}}\ket{\psi}
+	\end{bmatrix}
+	(\kvect, \rvect) \\%\endgroup
+	\intertext{Se aplica la sumatoria, sustituyendo los valores correspontiendes a la matrix Hamiltoniana efectiva \eqref{eq:TBEffHamiltonian} y se expande la expresión para la dispersión energética \eqref{eq:firstapprox}.}
+	\cancelshade{T_\mathtt{nn}} \begin{bmatrix} \alpha a_1 \\ \alpha^* a_0 \end{bmatrix} (\kvect) &= \lambda \cancelshade{T_{\mathtt{nn}}}\abs{\alpha} \begin{bmatrix} a_0 \\ a_1 \end{bmatrix} (\kvect) \numberthis\label{eq:subRedAmpPre}
+	\intertext{Por simplicidad en la notación, se define $ a_0(\kvect) \equiv a(\kvect) $ y $ a_1(\kvect) \equiv b(\kvect) $}
+	\begin{bmatrix} 0 & \alpha(\kvect) \\ \alpha^*(\kvect) & 0 \end{bmatrix} \begin{bmatrix} a(\kvect) \\ b(\kvect) \end{bmatrix} &= \lambda \abs{\alpha(\kvect)} \begin{bmatrix} a(\kvect) \\ b(\kvect) \end{bmatrix}\numberthis\label{eq:eigenStatesEQ}
+	\end{align*}
+\end{subequations}
+
+De modo que los autoestados vienen dados por el espinor
+\begin{equation}\label{eq:eigenStates}
+\ket{\Psi(\kvect)} = \begin{bmatrix} a(\kvect) \\ b(\kvect) \end{bmatrix}
+\end{equation}
+
+Asimismo, de la expresión \eqref{eq:subRedAmpPre} se puede deducir una relación entre las amplitudes de probabilidad de las funciones de ondas de Bloch en las dos sub-redes:
+
+\begin{align*}
+	\lambda\abs{\alpha(\kvect)} a(\kvect) &= \alpha(\kvect)b(\kvect) \\
+	a_\lambda(\kvect) &= \lambda\frac{\alpha(\kvect)}{\abs{\alpha(\kvect)}} b_\lambda(\kvect) = \lambda\frac{ \cancelshade{\abs{\alpha(\kvect)}} }{ \cancelshade{\abs{\alpha(\kvect)}} } e^{i \operatorname{Arg}\qty(\alpha(\kvect))} b_\lambda(\kvect) \\ 
+	a_\lambda(\kvect) &= \lambda e^{i \operatorname{Arg}\qty(\alpha(\kvect))} b_\lambda(\kvect) \numberthis\label{eq:subRedAmp}  
+\end{align*}
+
+\subsection{The Continuum Limit}\label{sec:ContinuumLimit}
+
+Para estudiar excitaciones de los estados cuánticos en la proximidad de los puntos de Dirac (equivalente a estudiar excitaciones de bajas energías) es necesario expandir la dispersión energética al rededor de $ \pm\vector{K^{D}} $, de modo que el vector de onda se describe como $ \kvect = \pm\vector{K^{D}} + \qvect $, donde $ \abs{\qvect} \ll \abs{\vector{K^{D}}} \sim \frac{1}{a} $. De modo que el parámetro que gobierna la expansión de la dispersión energética es $ \abs{\qvect} \ll 1 $.
+
+Es notorio que las expresiones de la dispersión energética \eqref{eq:firstapprox} y el Hamiltoniano efectivo \eqref{eq:TBEffHamiltonian}, que elemento necesario a ser expandido es la suma de los factores de fase $ \alpha(\kvect) $, distinguiendo las expansiones al rededor del punto $ D $ del punto $ D' $.
+
+\begin{equation*}
+	\alpha(\kvect) = \alpha\pqty{\pm \vector{K^{D}} + \qvect} \equiv \alpha_\pm(\qvect) = 1 + e^{i\pqty{\pm \vector{K^{D}} + \qvect} \cdot \avect1} + e^{i\pqty{\pm \vector{K^{D}} + \qvect} \cdot \avect2} \\
+\end{equation*}
+Expandiendo $ \vector{K^{D}} $ por \eqref{eq:diracPoints} y los vectores $ \avect1 $ y $ \avect2 $ según \eqref{eq:avectors}
+\begin{align*}
+	\alpha_\pm(\qvect) &= 1 + e^{\pm i \frac{2\pi\cancelshade{2a\sqrt3}}{3\cancelshade{2a\sqrt3}} \cancelshade{\begin{bsmallmatrix} 1&0 \end{bsmallmatrix} \begin{bsmallmatrix} 1\\\sqrt3 \end{bsmallmatrix}}} e^{i\qvect \cdot \avect1} + e^{\mp i \frac{2\pi\cancelshade{2a\sqrt3}}{3\cancelshade{2a\sqrt3}} \cancelshade{\begin{bsmallmatrix} 1&0 \end{bsmallmatrix} \begin{bsmallmatrix} 1\\-\sqrt3 \end{bsmallmatrix}}} e^{i\qvect \cdot \avect2} \\
+	\alpha_\pm(\qvect) &= 1 + e^{\pm i\frac{2\pi}{3}} e^{i\qvect \cdot \avect1} + e^{\mp i\frac{2\pi}{3}} e^{i\qvect \cdot \avect2}\\
+	\intertext{Se expanden las exponenciales en series de Taylor y se aproxima truncando las series en polinomios de segundo grado.}
+	\alpha_\pm(\qvect) &\approx 1 + e^{\pm i\frac{2\pi}{3}} \bqty{1 + i \qvect \cdot \avect1 - \tfrac{1}{2} \pqty{\qvect \cdot \avect1}^2} + e^{\mp i\frac{2\pi}{3}} \bqty{1 + i \qvect \cdot \avect2 - \tfrac{1}{2} \pqty{\qvect \cdot \avect2}^2}\\\begin{split}
+	\alpha_\pm(\qvect) &\approx \bqty{1 + e^{\pm i\frac{2\pi}{3}} + e^{\mp i\frac{2\pi}{3}}} + i \bqty{e^{\pm i\frac{2\pi}{3}} \pqty{\qvect \cdot \avect1} + e^{\mp i\frac{2\pi}{3}}\pqty{\qvect \cdot \avect2}} \\&\phantom\approx- \tfrac{1}{2} \bqty{ e^{\pm i\frac{2\pi}{3}}\pqty{\qvect \cdot \avect1}^2 + e^{\mp i\frac{2\pi}{3}}\pqty{\qvect \cdot \avect2}^2}\end{split}\\
+	\alpha_\pm(\qvect) &\approx \alpha_\pm^{(0)}(\qvect) + \alpha_\pm^{(1)}(\qvect) + \alpha_\pm^{(2)}(\qvect) \numberthis\label{eq:expPhaseFactor}
+\end{align*}
+
+Analizando la expansión en el orden cero, no es más que la suma de los factores de fase evaluada en los puntos de Dirac, que por definición de los puntos de Dirac, es nulo $ \alpha_\pm^{(0)}(\qvect) = \alpha\qty(\pm \vector{K^{D}}) = 0 $. La expansión se va a limitar hasta el primer orden en $ \abs{\qvect}a $ que es suficiente para describir en su mayor parte las propiedades fundamentales del grafeno. Sin embargo se deja plasmada la posibilidad de extenderse hasta el segundo orden cuya importancia radica en la inclusión de las correcciones dadas por $ T_\mathtt{nnn} $ y contribuciones de segundo orden fuera de la diagonal de la expansión de $ \alpha(\kvect) $.
+
+\subsubsection{Primer orden en $ \abs{\qvect}a $}
+	El término de primer orden se desarrolla:
+	\begin{align*}
+		\alpha_\pm^{(1)}(\qvect) &= i\bqty{e^{\pm i\frac{2\pi}{3}} \pqty{ \frac{a\sqrt3}{2}\begin{bsmallmatrix}q_x&q_y\end{bsmallmatrix} \begin{bsmallmatrix}1\\\sqrt3\end{bsmallmatrix}} + e^{\mp i\frac{2\pi}{3}}\pqty{ \frac{a\sqrt3}{2}\begin{bsmallmatrix}q_x&q_y\end{bsmallmatrix} \begin{bsmallmatrix}-1\\\sqrt3\end{bsmallmatrix}}} \\ 
+		&= i \frac{a\sqrt3}{2} \bqty{e^{\pm i\frac{2\pi}{3}} \pqty{q_x + q_y\sqrt3} + e^{\mp i\frac{2\pi}{3}} \pqty{ -q_x + q_y\sqrt3 }} \\ 
+		&= i \frac{a\sqrt3}{2} \bqty{ \pqty{ e^{\pm i\frac{2\pi}{3}} - e^{\mp i\frac{2\pi}{3}}} q_x + \sqrt3\pqty{e^{\pm i\frac{2\pi}{3}} + e^{\mp i\frac{2\pi}{3}}} q_y} \\ 
+		&= i \frac{a\sqrt3}{2} \bqty{\pqty{ \cancelshade{\cos(\tfrac{2\pi}{3})} \pm i\sin(\tfrac{2\pi}{3}) - \cancelshade{\cos(\tfrac{2\pi}{3})} \pm i\sin(\tfrac{2\pi}{3}) } q_x +  \sqrt3 \pqty{e^{\pm i\frac{2\pi}{3}} + e^{\mp i\frac{2\pi}{3}}} q_y} \\ 
+		&= i \frac{a\sqrt3}{2} \bqty{\pm i2\sin(\tfrac{2\pi}{3})q_x + \sqrt3 \pqty{ \cos(\tfrac{2\pi}{3}) \pm \cancelshade{i\sin(\tfrac{2\pi}{3})} + \cos(\tfrac{2\pi}{3}) \mp \cancelshade{i\sin(\tfrac{2\pi}{3})} } q_y} \\ 
+		&= i \frac{a\sqrt3}{2} \bqty{\pm i\frac{\cancelshade{2}\sqrt3}{\cancelshade{2}} q_x + 2\sqrt3\cos(\tfrac{2\pi}{3}) q_y } = \frac{3a}{2} \pqty{ \mp q_x - i \frac{\cancelshade{2}}{\cancelshade{2}} q_y } = \mp \frac{3a}{2} \pqty{q_x \pm i q_y} \\ 
+		\alpha_\xi^{(1)}(\qvect) &= -\xi \frac{3a}{2} \pqty{q_x +\xi i q_y} \numberthis\label{eq:phaseFactorFirstOrder} 
+	\end{align*}
+
+Sustituyendo el resultado anterior en el Hamiltoniano efectivo de enlace fuerte \eqref{eq:TBEffHamiltonian} se obtiene que:
+
+\begin{align*}
+	\widehat{H}^{\mathrm{eff}}_\xi (\qvect) &= -\xi T_\mathtt{nn} \frac{3a}{2} \begin{bmatrix} 0 & q_x -\xi i q_y \\ q_x +\xi i q_y & 0 \end{bmatrix} \\
+	\widehat{H}^{\mathrm{eff}}_\xi (\qvect) &= \xi \underbrace{\pqty{-\frac{T_\mathtt{nn} 3a}{2\hbar}}}_{v_F} \hbar \pqty{q_x \underbrace{\begin{bsmallmatrix} 0 & 1 \\ 1 & 0 \end{bsmallmatrix}}_{\smash{\sigma^x}} + \xi q_y \underbrace{\begin{bsmallmatrix} 0 & -i \\ i & 0 \end{bsmallmatrix}}_{\smash{\sigma^y}} } \\ 
+	\widehat{H}^{\mathrm{eff}}_\xi (\qvect) &= \xi v_F \hbar \pqty{q_x \sigma^x + \xi q_y \sigma^y} \numberthis\label{eq:LowETBEffHamiltonian}
+\end{align*}
+
+En las expresiones anteriores se definieron: el \emph{isoespín de valle} $ \xi \equiv \pm $, donde el valor $ \xi = + $ corresponde al punto $ D $ ubicado en $ +\vector{K^D} $ y $ \xi = - $ al punto $ D' $ en $ -\vector{K^D} $, la \emph{velocidad de Fermi} $ v_F \equiv -\frac{T_\mathtt{nn} 3a}{2\hbar} = \frac{\abs{T_\mathtt{nn}} 3a}{2\hbar} $ y las \emph{matrices de Pauli} \[ \sigma^x \equiv \begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix} \qquad \sigma_y \equiv \begin{bmatrix} 0 & -i \\ i & 0 \end{bmatrix} \]
+
+Como se enunció en párrafos anteriores, el Hamiltoniano de enlace fuerte a bajas energías \eqref{eq:LowETBEffHamiltonian} coincide con la ecuación de Weyl-Dirac.
+
+Sustituyendo \eqref{eq:phaseFactorFirstOrder} en la expresión de la dispersión energética \eqref{eq:firstapprox} con $ \abs{\alpha(\qvect)}^2 = 0 $ se expande:
+
+\begin{align*}
+	E_{\lambda, \xi} (\qvect) &= \lambda T_\mathtt{nn} \sqrt{ \alpha(\qvect) \alpha^*(\qvect)} \\ 
+	E_{\lambda, \xi} (\qvect) &= \lambda T_\mathtt{nn} \sqrt{\bqty{-\xi \frac{3a}{2} \pqty{q_x +\xi i q_y}} \bqty{-\xi \frac{3a}{2} \pqty{q_x -\xi i q_y}} } \\ 
+	E_{\lambda, \xi} (\qvect) &= \lambda T_\mathtt{nn} \frac{3a}{2} \sqrt{ \pqty{q_x +\xi i q_y} \pqty{q_x -\xi i q_y} } \\
+	E_{\lambda, \xi} (\qvect) &= \lambda \abs{v_F} \hbar \sqrt{q_x^2 + q_y^2} =  \hbar \abs{\lambda v_F} \sqrt{\abs{\qvect}^2} \\ 
+	E_{\lambda, \xi} (\qvect) &= \lambda \hbar \abs{v_F} \abs{\qvect} \numberthis\label{eq:LowEnergyDis}
+\end{align*}
+
+De modo que a bajas energías, la dispersión energética es independiente del isoespín 
+de valle, que se interpreta como una degeneración doble de los valles; también 
+presenta un carácter lineal, que visualmente se puede apreciar mediante un 
+acercamiento a la gráfica de la dispersión \eqref{eq:firstapprox} al rededor de un 
+punto $ D $ \figref{fig:diracVicinity}.
+
+Finalmente, las amplitudes de probabilidad se expanden mediante la aproximación de 
+primer orden
+\begin{align*}
+	a_{\lambda, \xi} (\qvect) &= \lambda e^{i \operatorname{Arg}\qty(\alpha^{(1)}_{\xi} (\qvect) )} b_{\lambda, \xi} (\qvect) \\ 
+	a_{\lambda, \xi} (\qvect) &= \lambda e^{i \operatorname{Arg}\qty( -\xi q_x - i q_y )} b_{\lambda, \xi} (\qvect) \\
+	a_{\lambda, \xi} (\qvect) &= - \lambda \xi e^{\xi i \varphi(\qvect)} b_{\lambda, \xi} (\qvect)		
+\end{align*}
+donde $ \varphi (\qvect) \equiv \angle(\qvect, \hat x) $ es el ángulo polar de $ \qvect $.
+
+De modo que los autoestados, dados por los espinores \eqref{eq:eigenStates}, se 
+escriben como
+\begin{equation}\label{eq:lowEigenStates}
+	\ket{\Psi_{\lambda, \xi} (\qvect)} = \frac{1}{\sqrt2} \begin{bmatrix} - \lambda \xi e^{\xi i \varphi} \\ 1 \end{bmatrix}
+\end{equation}

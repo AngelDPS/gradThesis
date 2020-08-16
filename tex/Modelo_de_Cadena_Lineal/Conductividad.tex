@@ -1,0 +1,102 @@
+\section{Conductividad a temperatura cero}
+	
+La conductividad a temperatura cero de este sistema se puede calcular mediante la formula de Kubo-Greenwood \autocite{Greenwood1958}
+\begin{equation}\label{eq:KuboGreenwood}
+	\sigma(E) = \frac{\pi \hbar e^2}{\Omega}\Trace[\delta(E - \widehat{H})\widehat{V}\delta(E - \widehat{H})\widehat{V}]
+\end{equation}
+donde $\Omega$ corresponde al volumen del sistema (en el caso de la cadena lineal $ \Omega = N $ el número de átomos en cadena), 
+\begin{equation}\label{eq:trace}
+	\Trace[\widehat{A}] = \frac{1}{N}\sum_n^N \bra{n}\widehat{A}\ket{n}
+\end{equation}
+corresponde a la traza (normalizada) sobre un conjunto base completo, $\delta(x)$ es la distribución de delta de Dirac y 
+\begin{equation}\label{eq:VelocityOP}
+	\widehat{V}_x = \frac{i}{\hbar} \comm{\widehat{H}}{\widehat{X}}
+\end{equation}
+es el operador velocidad en la dirección $x$; 
+\begin{equation}\label{eq:comm}
+	\comm{\widehat A}{\widehat B} = \widehat{A}\widehat{B} - \widehat{B}\widehat{A}
+\end{equation}
+es el conmutador de $\widehat{A}$ con $\widehat{B}$ y 
+\begin{equation}\label{eq:positionOP}
+	\widehat{X} = i \pdv{k_x}
+\end{equation}
+Es el operador velocidad en dirección $x$ escrito en la base del espacio recíproco.
+
+
+Los elementos de matriz para el operador velocidad de la cadena lineal ($\widehat{V}_x = \widehat{V}$) quedan de la forma
+\begin{align*}
+	\matrixel{k}{\widehat{V}}{k'} &= \matrixel{k}{\frac{i}{\hbar} \comm{\widehat{H}}{\widehat{X}}}{k'}, \\
+	\intertext{desarrollando el conmutador \eqref{eq:comm} y distribuyendo, se obtiene que}
+	\matrixel{k}{\widehat{V}}{k'} &= \frac{i}{\hbar} \bqty{\matrixel{k}{\widehat{H}\widehat{X}}{k'} - \matrixel{k}{\widehat{X}\widehat{H}}{k'}}\\
+	\intertext{cuya expasión dada por \eqref{eq:LC-TBHam} y \eqref{eq:positionOP} resulta en}
+	\matrixel{k}{\widehat{V}}{k'} &= \frac{i}{\hbar} \bqty{\matrixel{k}{\sum_{q}\ketbra{q}\varepsilon(q)i\pdv{k}}{k'} - \matrixel{k}{i\pdv{k}\sum_{q}\ketbra{q}\varepsilon(q)}{k'}}\\
+	\intertext{aplicando el ket $\bra{k}$ a la izquierda en el primer término y el ket $\ket{k'}$ en el segundo término, recordando que los vectores del número de ondas forman una base ortogonal, es decir $\braket{k}{q} = \delta^k_q$, entonces}
+	\matrixel{k}{\widehat{V}}{k'} &= -\frac{1}{\hbar} \bqty{\matrixel{k}{\varepsilon(k)\pdv{k}}{k'} - \matrixel{k}{\pdv{k}\varepsilon(k')}{k'}},\\
+	\intertext{el segundo término se desarrolla mediante la regla del producto,}
+	\matrixel{k}{\widehat{V}}{k'} &= -\frac{1}{\hbar} \bqty{\matrixel{k}{\varepsilon(k)\pdv{k}}{k'} - \braket{k}{k'}\pdv{\varepsilon(k')}{k} - \matrixel{k}{\varepsilon(k)\pdv{k}}{k'}},\\
+	\intertext{finalmente, eliminando términos iguales se obtiene}
+	\matrixel{k}{\widehat{V}}{k'} &= \frac{1}{\hbar} \pdv{\varepsilon(k)}{k} \delta^{k'}_k = \frac{2t}{\hbar} a\sin(ka)\delta^{k'}_k . \numberthis\label{eq:velOPmatrixEl}
+\end{align*}
+
+Las deltas de Dirac de la fórmula de Kubo-Greenwood \eqref{eq:KuboGreenwood} se aproximan mediante el KPM (Kernel Polynomial Method) \autocite{Weise2006}
+\begin{equation}\label{eq:diracDeltaKPM}
+	\delta(E - \widehat{H}) \sim \frac{2}{\pi \Delta E \sqrt{1 - \widetilde{E}^2}} \sum_{m=0}^{M} T_m(\widetilde{E}) \frac{g^J_m T_m(\widetilde{H})}{1 + \delta^m_0},
+\end{equation}
+donde 
+%\begin{equation*}\label{eq:bandWidth}
+	$\Delta E = \frac{E_{\mathrm{máx}} - E_{\mathrm{mín}}}{2}$
+%\end{equation*}
+es el ancho de banda, 
+\begin{equation}\label{eq:ChebyshevPol}
+	T_m(x) = \cos(m\acos(x)),
+\end{equation}
+es el polinomio de Chebyshev de grado $m$,
+%\begin{equation*}\label{eq:reducedEnergy}
+	$\widetilde{E} = \frac{E - \bar{E}}{\Delta E}$ 
+%\end{equation*}
+es la energía reducida (y $\widetilde{H}$ es correspondientemente el hamiltoniano reducido), con $\bar{E} = \frac{E_{\mathrm{máx}} + E_{\mathrm{mín}}}{2}$ el centro de banda;
+\begin{equation}\label{eq:jacksonKernel}
+	g_m^J = \frac{(M + 1 - m)\cos(\frac{\pi m}{M + 1}) + \sin(\frac{\pi m}{M + 1})\cot(\frac{\pi}{M + 1})}{M + 1}
+\end{equation}
+corresponde a los factores asociados al kernel de Jackson para amortiguar las oscilaciones de Gibbs generadas por el truncamiento de la serie de Chebyshev a un número $M$ finito de términos.
+
+Con todo lo anterior, la conductividad a temperatura cero se aproxima como (asumiendo un mismo número de términos $M$ para la aproximación polinómica de ambas deltas de Dirac)
+\begin{equation}\label{eq:KGapprox}
+	\begin{aligned}
+		\sigma(E) &\sim \frac{4\hbar e^2}{\pi\Omega{\Delta E}^2(1 - \widetilde{E}^2)} \sum_{m=0}^{M} \sum_{n=0}^{M} T_m(\widetilde{E})T_n(\widetilde{E}) g^J_m g^J_n \frac{\Trace[T_m(\widetilde{H})\widehat{V}T_n(\widetilde{H})\widehat{V}]}{(1 + \delta^m_0) (1 + \delta^n_0)}, \\ 
+		\sigma(E) &\sim \frac{4\hbar e^2}{\pi\Omega{\Delta E}^2(1 - \widetilde{E}^2)} \sum_{m=0}^{M} \sum_{n=0}^{M} T_m(\widetilde{E})T_n(\widetilde{E}) g^J_m g^J_n \mu^m_n,
+	\end{aligned}
+\end{equation}
+de modo que es de interés analizar la traza en la expresión anterior para el caso específico de la cadena lineal.
+
+Para los próximos análisis se asume una amplitud de salto entre vecinos cercanos $t = -½$, dado esto, las auto-energías, dadas por la función $ E(k) = \varepsilon(E) \stackrel{t = -½}{=} \cos(ka) $, están acotadas por los valores $ E_{\mathrm{máx}} = 1 $ y $ E_{\mathrm{mín}} = -1 $, por lo tanto se tiene que $ \Delta E = 1 $, $ \bar{E} = 0 $, lo cuál implica que $ \widetilde{E} = E $ y $ \widetilde{H} = \widehat{H} $. De modo que la traza, desarrollada según \eqref{eq:trace}, queda de la forma
+\begin{align*}
+	\Trace[T_m(\widetilde{H})\widehat{V}T_n(\widetilde{H})\widehat{V}] &= \frac{1}{N}\sum_{k} \expval{T_m(\widehat{H})\widehat{V}T_n(\widehat{H})\widehat{V}}{k}; \\
+	\intertext{para cualquier función $ f $ expandible en serie de potencias, se tiene que $f(\widehat{H}) = \sum_{k} \ketbra{k} f(\varepsilon)$. Para los polinomios de Chebyshev $ T_m(\widehat{H}) = \sum_{k} \ketbra{k} T_m(\varepsilon) = \sum_{k} \ketbra{k} \cos(mka) $, dada la expresión de los polinomios de Chebyshev \eqref{eq:ChebyshevPol}, así que}
+	\Trace[T_m(\widetilde{H})\widehat{V}T_n(\widetilde{H})\widehat{V}] &= \frac{1}{N}\sum_{k} \expval{\sum_{k'}\ketbra{k'} \cos(mk'a)\widehat{V}T_n(\widehat{H})\widehat{V}}{k}, \\
+	\intertext{aprovechando la relación de completitud \eqref{eq:k-completness}, entonces}
+	\Trace[T_m(\widetilde{H})\widehat{V}T_n(\widetilde{H})\widehat{V}] &= \frac{1}{N}\smashoperator{\sum_{k,q,q'}} \bra{k}{\sum_{k'}\ketbra{k'} \cos(mk'a)\ket{q}\bra{q}\widehat{V}\ket{q'}\bra{q'}T_n(\widehat{H})\widehat{V}}{k}\ket{k}, \\
+	\intertext{aplicando el $\bra{k}$ por la derecha y expandiendo los elementos de matriz para el operador velocidad \eqref{eq:velOPmatrixEl} se obtiene}
+	\Trace[T_m(\widetilde{H})\widehat{V}T_n(\widetilde{H})\widehat{V}] &= -\frac{a}{\hbar N} \sum_{k,q} \bra{k} \ket{q}\cos(mka)\sin(qa)\bra{q}T_n(\widehat{H})\widehat{V}\ket{k}, \\
+	\Trace[T_m(\widetilde{H})\widehat{V}T_n(\widetilde{H})\widehat{V}] &= -\frac{a}{\hbar N} \sum_{k} \cos(mka)\sin(ka)\bra{k}T_n(\widehat{H})\widehat{V}\ket{k}, \\
+	\intertext{aplicando el mismo procedimiento para el elemento de matriz faltante, da}
+	\Trace[T_m(\widetilde{H})\widehat{V}T_n(\widetilde{H})\widehat{V}] &= \pqty{\frac{a}{\hbar}}^2 \frac{1}{N} \sum_{k} \sin[2](ka)\cos(mka)\cos(nka). \\
+	\intertext{Adicionalmente se le establecen condiciones de frontera períodica a la cadena lineal, de modo que las auto-energías se cuantizan a aquellas correspodientes a los valores del vector de onda $ak_n = \frac{2\pi n}{N}$, con $ N $ el número de átomos en la cadena y el índice entero $ n $ va de 0 a $N$. Con esto se puede transformar la sumatoria en una integral sobre el espacio-k mediante la definición de la suma de Riemman}
+	\Trace[T_m(\widetilde{H})\widehat{V}T_n(\widetilde{H})\widehat{V}] &= \pqty{\frac{a}{\hbar}}^2 \frac{N}{2\pi N} \smashoperator{\int_{0}^{2\pi}} \sin[2](ka)\cos(mka)\cos(nka)d(ka).\label{eq:chebMomTraceInt}\numberthis \\ 
+	\intertext{Resolviendo la integral \apdref{ap:chebMomTraceInt},}
+	\Trace[T_m(\widehat{H})\widehat{V}T_n(\widehat{H})\widehat{V}] &= \pqty{\frac{a}{\hbar}}^2 \frac{1}{2\pi} \frac{\pi}{2} \bqty{\delta^m_n(1 + \delta^m_0)(1-\tfrac{1}{2}\delta^m_1) - \tfrac{1}{2}(1 - \delta^m_n)(\delta^{m+n}_2 + \delta^{\abs{m-n}}_2)},
+\end{align*}
+con esto se puede obtener la cantidad $ \mu^m_n $, presentada en la expresión \eqref{eq:KGapprox},
+\begin{align*}
+	\mu^m_n &= \pqty{\frac{a}{2\hbar}}^2 \bqty{\delta^m_n\frac{(1 + \delta^m_0)(1-\tfrac{1}{2}\delta^m_1)}{(1 + \delta^m_0)^2} - \tfrac{1}{2}(1 - \delta^m_n)\frac{\delta^{m+n}_2 + \delta^{\abs{m-n}}_2}{(1 + \delta^m_0) (1 + \delta^n_0)}},\\
+	\mu^m_n &= \pqty{\frac{a}{2\hbar}}^2 \bqty{\delta^m_n\frac{(1-\tfrac{1}{2}\delta^m_1)}{(1 + \delta^m_0)}\frac{1 + \delta^m_1}{1 + \delta^m_1} - \tfrac{1}{2}(1 - \delta^m_n)\frac{\delta^{m+n}_2 + \delta^{\abs{m-n}}_2}{(1 + \delta^m_0) (1 + \delta^n_0)} \frac{1 - \tfrac{1}{2}\delta^m_0 - \tfrac{1}{2}\delta^n_0}{1 - \tfrac{1}{2}\delta^m_0 - \tfrac{1}{2}\delta^n_0}},\\
+	\intertext{Para $ m \neq n $ la ecuación $ m + n = 2 $ solo tiene como resultados posibles los valores $ (m, n) = \{(0, 2), (2, 0)\} $ por lo cual $ \delta^{m+n}_2 = \delta^m_0\delta^n_2 + \delta^m_2\delta^n_0 $,}
+	\mu^m_n &= \pqty{\frac{a}{2\hbar}}^2 \bqty{\frac{\delta^m_n}{(1 + \delta^m_0 + \delta^m_1)} - \tfrac{1}{2}(1 - \delta^m_n)(\delta^m_0\delta^n_2 + \delta^m_2\delta^n_0 + \delta^{\abs{m-n}}_2)(1 - \tfrac{1}{2}\delta^m_0 - \tfrac{1}{2}\delta^n_0)},\\
+	\mu^m_n &= \pqty{\frac{a}{2\hbar}}^2 \bqty{\frac{\delta^m_n}{(1 + \delta^m_0 + \delta^m_1)} - \tfrac{1}{2}(1 - \delta^m_n)\delta^{\abs{m-n}}_2}.\numberthis\\
+\end{align*}
+
+Sustituyendo esta expresión en la aproximación para la conductividad \eqref{eq:KGapprox}
+\begin{align*}
+	\sigma(E) &\sim \frac{4\hbar e^2}{N\pi(1 - E^2)} \pqty{\frac{a}{2\hbar}}^2 \sum_{m=0}^{M} \sum_{n=0}^{M} T_m(E)T_n(E)g_m g_n \bqty{\frac{\delta^m_n}{(1 + \delta^m_0 + \delta^m_1)} - \tfrac{1}{2}(1 - \delta^m_n)\delta^{\abs{m-n}}_2},\\
+	\sigma(E) &\sim \frac{a^2e^2}{Nh(1 - E^2)} \sum_{m=0}^{M} \sum_{n=0}^{M} T_m(E)T_n(E)g_m g_n \bqty{\frac{\delta^m_n}{(1 + \delta^m_0 + \delta^m_1)} - \tfrac{1}{2}(1 - \delta^m_n)\delta^{\abs{m-n}}_2}.\numberthis
+\end{align*}

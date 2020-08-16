@@ -1,0 +1,68 @@
+\chapter{Resolución de la integral de la expresión }
+\label{ap:chebMomTraceInt}
+
+La integral resultante de la traza \eqref{eq:chebMomTraceInt} se puede resolver caso por caso para distintas ligaduras sobre los índices $m$ y $n$ antes de escribirla en una expresión general.
+
+\section{Para $ m = n = 0$}
+La integral se reduce a 
+\begin{equation*}\label{eq:mIsnIsZero}
+	\smashoperator{\int_{0}^{2\pi}} \sin[2](x)\cos(mx)\cos(nx)dx = \smashoperator{\int_{0}^{2\pi}} \sin[2](x)dx,
+\end{equation*}
+en la cuál se aplica la propiedad $\sin[x](x) = \tfrac{1}{2}\bqty{1 - \cos(2x)}$, obteniendo
+\begin{align*}
+	\smashoperator{\int_{0}^{2\pi}} \sin[2](x)dx &= \tfrac{1}{2} \smashoperator{\int_{0}^{2\pi}} \bqty{1 - \cos(2x)} dx, \\
+	\smashoperator{\int_{0}^{2\pi}} \sin[2](x)dx &= \tfrac{1}{2} \bqty{x\big|_{0}^{2\pi} - \tfrac{1}{2}\sin(2x)\big|_{0}^{2\pi}}, \\
+	\smashoperator{\int_{0}^{2\pi}} \sin[2](x)dx &= \frac{2\pi}{2} = \pi. \label{eq:intSinsqrd}\numberthis
+\end{align*}
+
+\section{Para $ m \neq n = 0$}
+Para desarrollar las siguientes integrales es necesario tener en cuenta la relación de ortogonalidad del coseno
+\begin{equation}\label{eq:cosineOrthogonality}
+	\smashoperator{\int_{0}^{2\pi}} \cos(mx)\cos(nx) dx = \pi \delta^m_n (1 + \delta^m_0).
+\end{equation}
+
+Bajo estas ligaduras la integral toma la expresión
+\begin{equation*}\label{eq:mIsNotnIsZero}
+	\smashoperator{\int_{0}^{2\pi}} \sin[2](x)\cos(mx)\cos(nx)dx = \smashoperator{\int_{0}^{2\pi}} \sin[2](x)\cos(mx)dx.
+\end{equation*}
+Desarrollando por integración por partes
+\begin{align*}
+	\smashoperator{\int_{0}^{2\pi}} \sin[2](x)\cos(mx)dx &= \frac{1}{m} \sin(mx)\sin[2](x)\Big|_{0}^{2\pi} - \frac{2}{m}\smashoperator{\int_{0}^{2\pi}} \cos(x)\sin(x)\sin(mx)dx, \\
+	\intertext{la integral resultante se puede expandir mediante la propiedad trigonométrica \newline$\sin(\alpha)\sin(\beta) = \frac{1}{2}\bqty{\cos(\alpha - \beta) - \cos(\alpha + \beta)}$}
+	\smashoperator{\int_{0}^{2\pi}} \sin[2](x)\cos(mx)dx &= 0 - \frac{1}{m}\smashoperator{\int_{0}^{2\pi}} \cos(x)\bqty{\cos((1 - m)x) - \cos((1 + m)x)}dx, \\
+	\smashoperator{\int_{0}^{2\pi}} \sin[2](x)\cos(mx)dx &= -\frac{1}{m}\bqty{\smashoperator{\int_{0}^{2\pi}} \cos(x)\cos((1 - m)x) dx - \smashoperator{\int_{0}^{2\pi}} \cos(x)\cos((1 + m)x)dx}; \\
+	\intertext{resolviendo las integrales mediante la relación de ortogonalidad \eqref{eq:cosineOrthogonality}}
+	\smashoperator{\int_{0}^{2\pi}} \sin[2](x)\cos(mx)dx &= -\frac{\pi}{m}\bqty{\delta^1_{m-1}(\delta^1_0 + 1) - \delta^{m+1}_1(\delta^1_0 + 1)}. \\
+	\intertext{La ligadura $ m \neq 0 \implies \delta^{m+1}_1 = 0 $ y $ \delta^{m-1}_1 = \delta^m_2 $, así que finalmente}
+	\smashoperator{\int_{0}^{2\pi}} \sin[2](x)\cos(mx)dx &= -\tfrac{\pi}{2}\delta^m_2. \label{eq:intSinSqrdCosmx}\numberthis
+\end{align*}
+
+\section{Para $ m = n \neq 0 $}
+Con esto, la integral queda como
+\begin{equation*}\label{eq:mIsnIsNotzero}
+	\smashoperator{\int_{0}^{2\pi}} \sin[2](x)\cos(mx)\cos(nx)dx = \smashoperator{\int_{0}^{2\pi}} \sin[2](x)\cos[2](mx) dx.
+\end{equation*}
+Para resolver, se aplica la propiedad trigonométrica $ \cos[2](x) = \frac{1}{2}\bqty{1 + \cos(2x)} $,
+\begin{align*}
+	\smashoperator{\int_{0}^{2\pi}} \sin[2](x)\cos[2](mx) dx &= \frac{1}{2}\smashoperator{\int_{0}^{2\pi}} \sin[2](x)\bqty{1 + \cos(2mx)} dx, \\ 
+	\smashoperator{\int_{0}^{2\pi}} \sin[2](x)\cos[2](mx) dx &= \frac{1}{2}\bqty{\smashoperator{\int_{0}^{2\pi}} \sin[2](x) dx + \smashoperator{\int_{0}^{2\pi}} \sin[2](x)\cos(2mx) dx}, \\
+	\intertext{Sustituyendo los valores para la primera y segunda integral por los resultados anteriores \eqref{eq:intSinsqrd} y \eqref{eq:intSinSqrdCosmx} respectivamente,}
+	\smashoperator{\int_{0}^{2\pi}} \sin[2](x)\cos[2](mx) dx &= \tfrac{1}{2}\pqty{\pi - \tfrac{\pi}{2}\delta^{2m}_2},\\
+	\intertext{lo cual resulta en}
+	\smashoperator{\int_{0}^{2\pi}} \sin[2](x)\cos[2](mx) dx &= \tfrac{\pi}{2}\pqty{1 - \tfrac{1}{2}\delta^{m}_1}.\label{eq:intSinSqrdCosmxsqrd}\numberthis
+\end{align*}
+
+\section{Para $ m \neq n $}
+Finalmente hay que resolver la integral
+\begin{equation*}\label{eq:mIsNotn}
+	\smashoperator{\int_{0}^{2\pi}} \sin[2](x)\cos(mx)\cos(nx)dx,
+\end{equation*}
+para ello aplicamos la propiedad trigonométrica $\cos(\alpha)\cos(\beta) = \frac{1}{2}\bqty{\cos(\alpha + \beta) + \cos(\alpha - \beta)}$, obteniendo
+\begin{align*}
+	\smashoperator{\int_{0}^{2\pi}} \sin[2](x)\cos(mx)\cos(nx)dx &= \frac{1}{2}\smashoperator{\int_{0}^{2\pi}} \sin[2](x)\bqty{\cos((m+n)x) + \cos((m-n)x)}dx, \\ 
+	\smashoperator{\int_{0}^{2\pi}} \sin[2](x)\cos(mx)\cos(nx)dx &= \frac{1}{2}\bqty{\smashoperator{\int_{0}^{2\pi}} \sin[2](x)\cos((m+n)x) dx + \smashoperator{\int_{0}^{2\pi}} \sin[2](x) \cos((m-n)x)dx}, \\
+	\intertext{sustituyendo lo obtenido de la integral \eqref{eq:intSinSqrdCosmx} tenemos que} 
+	\smashoperator{\int_{0}^{2\pi}} \sin[2](x)\cos(mx)\cos(nx)dx &= \tfrac{1}{2}\pqty{-\tfrac{\pi}{2} \delta^2_{m+n} - \tfrac{\pi}{2} \delta^{\abs{m-n}}_2} = -\tfrac{\pi}{4}\pqty{\delta^{m+n}_2 + \delta^{\abs{m-n}}_2}. \label{eq:intSinSqrdCosmxCosnx} \numberthis
+\end{align*}
+Es sencillo confirmar que estableciendo la condición $ n = 0 $, se recupera lo obtenido en la integral \eqref{eq:intSinSqrdCosmx}.
+

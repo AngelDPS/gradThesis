@@ -1,0 +1,164 @@
+\section{Estructura cristalina: panal de abejas}
+
+La red de panal de abejas no es una red de Bravais, esto debido a que dos sitios 
+adyacentes de la red no son equivalentes, o expresado matemáticamente, no se puede 
+describir mediante un conjunto de traslaciones discretas de la forma
+\begin{equation}\label{eq:bravais}
+\Rvect{m} = m_1\avect{1} + m_2\avect{2} \qq{donde} m_1 \land m_2 \in \mathbbm{Z}
+\end{equation}
+donde $ \avect{1} $ y $ \avect{2} $ son los vectores primitivos de la red.
+
+Sin embargo se puede describir mediante la superposición de dos redes de Bravais 
+triangulares (también llamadas hexagonales)\figref{fig:LatticeSuperposition}
+
+\begin{figure}[htb]
+	\Centering
+	\subcaptionbox[Red de Bravais triangular A]{\label{fig:SubA} Red de Bravais triangular A con sus vectores primitivos y los vectores de traslación de la red B a la red A}[0.32\textwidth]
+	{\begin{tikzpicture}%
+		[scale=0.825, every edge quotes/.append style={inner sep=1pt, outer sep=0pt}]
+		\triangularSites[site/.default=blue, site/.append style={ultra nearly transparent}]{3}{6}
+		
+		\node [subBsite, nearly opaque] (A-1-1) at (T-1-1) {};
+		
+		\triangularLattice[site/.default=red, bonds/.style={red, semitransparent}, graphene]{3}{6}
+		
+		\draw[vectors=red] (T-1-1) edge["$\avect{1}$"] (T-0-1) edge["$\avect{2}$"] (T-0-0) edge["$\avect{3}$"] (T-1-2);
+		
+		\draw[vectors=blue, nearly opaque, every edge quotes/.append style={font=\footnotesize}] (A-1-1)
+		edge["$\dvect{3}^\prime$"] (T-1-1)
+		edge["$\dvect{1}^\prime$"] (T-2-1)
+		edge["$\dvect{2}^\prime$"'] (T-1-2);
+		\end{tikzpicture}}
+	\subcaptionbox[Red de Bravais triangular B]{\label{fig:SubB} Red de Bravais triangular B con sus vectores primitivos y los vectores de traslación de la red A a la red B}[0.32\linewidth]
+	{\begin{tikzpicture}[scale=0.825, every edge quotes/.append style={inner sep=1pt, outer sep=0pt}]
+		\triangularSites[site/.default=red, site/.append style={ultra nearly transparent}, graphene]{3}{6}
+		
+		\node [subAsite, nearly opaque] (B-2-1) at (T-2-1) {};
+		
+		\triangularLattice[site/.default=blue, bonds/.style={blue, semitransparent}]{3}{6}
+		
+		\draw[vectors=blue, thick] (T-1-1) edge["$\avect{1}$"] (T-0-2) edge["$\avect{2}$"] (T-0-1) edge["$\avect{3}$"] (T-1-2);
+		
+		\draw[vectors=red, nearly opaque, thick, every edge quotes/.append style={font=\footnotesize}] (B-2-1)
+		edge["$\dvect{1}$"] (T-1-1)
+		edge["$\dvect{2}$"] (T-2-1)
+		edge["$\dvect{3}$"] (T-2-2);
+	\end{tikzpicture}}
+	\subcaptionbox[Red de panal de abejas (Sup. A con B)]{\label{fig:honneycombLattice} Superposición de las redes A y B formando la red de panal de abejas (se muestra la celda unitaria de la red en una posición arbitraria)}[0.32\linewidth]
+	{\begin{tikzpicture}[scale=0.825]
+		\triangularLattice[site/.append style={draw=none, fill=none}, bonds/.append style={red, nearly transparent}, graphene]{3}{6}
+		
+		\triangularLattice[site/.append style={draw=none, fill=none}, bonds/.append style={blue, nearly transparent}]{3}{6}
+		
+		\honeyLattice[bonds/.style={black, very thick}]{3}{6}
+		
+		\useasboundingbox (current bounding box.north west) (current bounding box.south east);
+		
+		\draw [preaction={draw, white, line width=2.5pt}]
+		[dashed]
+		($(HA-0-0)!0.5!(triangular cs:x=1, y=-1)$) --
+		($(HA-0-0)!0.5!(HB-1-0)$) -- ($(HB-1-0)!0.5!(HA-2-1)$) --
+		($(HB-1-1)!0.5!(HA-0-1)$) -- cycle;
+	\end{tikzpicture}}
+	\caption{\label{fig:LatticeSuperposition} Esquemas de la red cristalográfica del grafeno partiendo de la composición de dos redes triangulares.}
+\end{figure}
+
+Conociendo la distancia ínter-atómica $ a $ de la red y la geometría de la misma, se 
+pueden calcular los vectores $ \dvect{\mu} $ que conectan a los 
+\emph{vecinos más próximos} (\texttt{nn} por sus iniciales en inglés), y los 
+vectores primitivos $ \avect{i} $ de las sub-redes triangulares, que además conectan 
+a los \emph{siguientes vecinos más próximos} (\texttt{nnn}, ídem).
+
+El vector $ \dvect{1} $ se ubica sobre el eje $ y $, con una norma $ a $, y los 
+vectores $ \dvect{2} $ y $ \dvect{3} $ se calculan mediante rotaciones de 
+\unit{120}{\degree} y \unit{240}{\degree} respectivamente, utilizando la matriz de 
+rotación \[ \widehat{R}(\theta)=\bmqty{\cos\theta & -\sin\theta \\ \sin\theta & 
+	\cos\theta} \] de modo que:
+\begin{equation}\label{eq:deltavec}
+\dvect{1} = a\bmqty{0\\1}, \quad \dvect{2} = 
+\widehat{R}(\unit{120}{\degree})\dvect{1} = -\frac{a}{2}\bmqty{\sqrt3\\1}, \quad 
+\dvect{3} = \widehat{R}(\unit{240}{\degree})\dvect{1} = \frac{a}{2}\bmqty{\sqrt3\\-1}
+\end{equation}
+
+Los vectores $ \avect{1} $, $ \avect{2} $ y $ \avect{3} $ se pueden calcular 
+mediante la sustracción de los vectores $ \dvect{i} $
+\begin{equation}\label{eq:avectors}
+\avect{1} = \dvect{1} - \dvect{2} = \frac{a\sqrt3}{2}\bmqty{1\\\sqrt3}, \quad 
+\avect{2} = \dvect{1} - \dvect{2} = \frac{a\sqrt3}{2}\bmqty{-1\\\sqrt3}, \quad 
+\avect{3} = \dvect{3} - \dvect{2} = a\bmqty{\sqrt3\\0}
+\end{equation}
+Cualquier par de vectores $ \avect{i} $ puede ser visto como los vectores primitivos 
+de las sub-redes triangulares, particularmente se usarán en este caso los vectores $ 
+\avect{1} $ y $ \avect{2} $.
+
+Seguidamente se pueden calcular los vectores primitivos de la red recíproca $ 
+\bvect{i} $ mediante la relación fundamental
+\begin{gather}
+	\bvect{i} \cdot \avect{j} = 2\pi\delta_{ij} \qq{o matricialmente} 
+	\bmqty{\xmat*{\vector b}{1}{2}}^\mathrm{T}\bmqty{\xmat*{\vector a}{1}{2}} 
+	=2\pi\mathbbm1 \nonumber\\
+	\therefore\quad \bmqty{\xmat*{\vector b}{1}{2}}^\mathrm{T} = 2\pi\bmqty{\xmat*{\vector a}{1}{2}}^{-1}
+\end{gather}
+de modo que los vectores primitivos de la red recíproca son
+\begin{equation}\label{eq:bvectors}
+\bvect{1} = \frac{2\pi}{a\sqrt3}\bmqty{1\\{\sqrt3}^{-1}}, \quad \bvect{2} = \frac{2\pi}{a\sqrt3}\bmqty{-1\\{\sqrt3}^{-1}}
+\end{equation}
+
+Según esto, la red recíproca es entonces una red triangular, con una primera Zona de 
+Brillouin hexagonal con esquinas no-equivalentes
+\footnote{No-equivalentes se refiere a que no es posible pasar de un punto a otro 
+	mediante adición entera de los vectores de la red recíproca, es decir \[ 
+	\vector{-K} \neq \vector{+K} + n_1\bvect{1} + n_2\bvect{2} \quad \forall\quad 
+	n_1 \land n_2 \in \mathbbm{Z} \]} 
+$ \mathtt{K} $ y $ \mathtt{K}' $ \figref{fig:reciprocal}. 
+
+\begin{figure}[hbt]
+	\Centering
+	\begin{tikzpicture}[site/.append style={minimum size=3pt}, kpoint/.style={fill=#1, draw, inner sep=0pt, minimum size=3.5pt}]
+	\newlength{\bY}
+	\pgfmathsetlength{\bY}{(1/sqrt(3))*\reciprocalspace}
+	\pgfsetxvec{\pgfpoint{\reciprocalspace}{\bY}}
+	\pgfsetyvec{\pgfpoint{-\reciprocalspace}{\bY}}
+	
+	\begin{pgfonlayer}{foreground}
+	\node[site, "$\Gamma$" above] at (0, 0) (R-0) {};
+	\draw
+	( 1, 1) node[site] (R-1) {} --
+	( 1, 0) node[site] (R-2) {} --
+	( 0,-1) node[site] (R-3) {} --
+	(-1,-1) node[site] (R-4) {} --
+	(-1, 0) node[site] (R-5) {} --
+	( 0, 1) node[site] (R-6) {} -- cycle;
+	\end{pgfonlayer}
+	
+	%\iffalse
+	\draw[bonds] (R-0) edge (R-1) edge (R-3) edge (R-4) edge (R-5);
+	\draw[help lines, dashed, name path=odd] (R-1) -- (R-3) -- (R-5) -- (R-1);
+	\draw[help lines, dashed, name path=even] (R-2) -- (R-4) -- (R-6) -- (R-2);
+	
+	\draw %[preaction={draw, violet!20, line width=1.6pt}]
+	[name intersections={of=even and odd, sort by=even, name=bri}]
+	[violet, thick]
+	(bri-6) foreach \i in {1,...,5}{--(bri-\i)}--cycle;
+	\begin{pgfonlayer}{background}
+	\fill [violet!20!white!95!black]
+	(bri-6) foreach \i in {1,...,5}{--(bri-\i)}--cycle;
+	\end{pgfonlayer}
+	\foreach \i [evaluate=\i as \imod using {int(mod(\i,2))}] in {2,3,5,6}{\ifnum\imod=1\def\fillcolor{white}\else\def\fillcolor{gray}\fi
+		\node at (bri-\i) [kpoint=\fillcolor] {};}
+	\node at (bri-1) [kpoint=white, "$\mathtt{K}$" right] {}; 
+	\node at (bri-4) [kpoint=gray, "$\mathtt{K}'$" left] {}; 
+	
+	\draw [vectors=black, every edge quotes/.append style={inner sep=1pt, pos=0.75}]
+	(R-0) edge["$\bvect{2}$"'] (R-6)
+	edge["$\bvect{1}$"] (R-2);
+	
+	\draw[red, decoration={brace, amplitude=5.5pt, aspect=0.75}, decorate] (R-0) -- (R-4) node[pos=0.74, right=3pt] {$\dfrac{4\pi}{3a}$};%\fi
+	\end{tikzpicture}
+	\caption[Red recíproca y primera zona de Brillouin para una red triangular]{\label{fig:reciprocal} Red recíproca de una red de Bravais triangular con sus vectores primitivos correspondientes, sombreado se observa la primera zona de Brillouin con sus 3 pares de vértices no-equivalentes}
+\end{figure}
+
+Los vectores $ \pm\vector{K} $ que conectan el centro $ \Gamma $ con los puntos $ \mathtt{K} $ y  $ \mathtt{K}' $ son
+\begin{equation}\label{eq:KK'}
+\pm\vector{K} = \pm \frac{4\pi}{3a\sqrt3} \bmqty{1\\0}
+\end{equation}

@@ -1,0 +1,43 @@
+\documentclass[11pt, letterpaper, twoside, openany]{book}
+
+\usepackage{TEG-ANGEL}
+
+% Para eliminar los comentarios del documento, de-comentar la siguiente línea
+% \renewcommand{\comentario}[2]{}
+
+% \includeonly{./tex/Portada}
+
+\begin{document}
+	\frontmatter
+	
+	\include{./tex/Portada}
+	
+	\include{./tex/Abstract}
+	
+	\include{./tex/Resumen}
+	
+	\include{./tex/Introduccion}
+	
+	\mainmatter
+	\renewcommand{\chaptermark}[1]{\markboth{\thechapter\ #1}{}}
+	\renewcommand{\sectionmark}[1]{\markright{\thesection.\ #1}}
+	
+	%\include{./tex/Planteamiendo_del_Problema}
+	
+	%\include{./tex/Antecedentes}
+	
+	\include{./tex/Polinomios_de_Chebyshev}
+	
+	\include{./tex/Operador_Evolucion_Temporal}
+	
+	\include{./tex/Modelo_de_Cadena_Lineal}
+		
+	%\include{./tex/Grafeno}
+	
+	\include{./tex/Apendices}
+	
+	\backmatter
+	
+	\include{./tex/Bibliografia}
+	
+	\end{document}
