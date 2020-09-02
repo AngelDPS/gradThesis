@@ -1,0 +1,21 @@
+\ProvidesPackage{TEG-ANGEL-bib}
+
+\RequirePackage[backend=biber, sorting=ynt, style=authoryear-comp, autocite=inline, minbibnames=2, url=false, eprint=false, backref=true, maxcitenames=1]{biblatex}
+\AtEveryBibitem{
+	\clearlist{address}
+	%\clearfield{date}
+	%\clearfield{isbn}
+	%\clearfield{issn}
+	%\clearlist{location}
+	%\clearfield{month}
+	%\clearfield{series}
+	\clearlist{publisher}
+	\clearname{editor}
+	%\clearfield{pages}
+	%\clearname{journal}
+}
+\setlength\bibitemsep{1.5\itemsep}
+
+\DefineBibliographyStrings{spanish}{andothers={et~al\adddot}}
+\addbibresource{TEG.bib}
+\RequirePackage[unicode, colorlinks, urlcolor=blue]{hyperref}

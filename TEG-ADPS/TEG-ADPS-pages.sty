@@ -1,0 +1,27 @@
+\ProvidesPackage{TEG-ANGEL-pages}
+
+\RequirePackage[letterpaper, headheight=14pt]{geometry}
+\RequirePackage{lastpage}
+\RequirePackage{ragged2e}
+\RequirePackage{fancyhdr}
+\fancyfoot{}
+\fancyhead[LE,RO]{\small\textsl{\MakeUppercase\rightmark}}
+\fancyhead[LO,RE]{\textsl{\MakeUppercase\leftmark}}
+\fancyfoot[LE,RO]{\thepage}
+\fancyfoot[LO,RE]{\textsc{Trabajo Especial de Grado}}
+\renewcommand{\footrulewidth}{0.2pt}
+\pagestyle{fancy}
+\fancypagestyle{plain}{%
+	\fancyhf{} 
+	\fancyfoot[LE,RO]{\thepage}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{0.2pt}}
+\newlength{\drop}
+\setlength{\drop}{0.05\textheight}
+\RequirePackage[Glenn]{fncychap}
+\RequirePackage{emptypage}
+\RequirePackage{microtype}
+\RequirePackage[]{appendix}
+\renewcommand{\appendixname}{Apéndice}
+\renewcommand{\appendixtocname}{Apéndices}
+\renewcommand{\appendixpagename}{Apéndices}

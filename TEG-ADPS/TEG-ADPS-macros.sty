@@ -1,0 +1,35 @@
+\ProvidesPackage{TEG-ANGEL-macros}
+
+\makeatletter\def\blfootnote{\xdef\@thefnmark{}\@footnotetext}\makeatother
+
+\newcommand{\figref}[1]{(\hyperref[#1]{Fig.~\ref*{#1}})}
+\newcommand{\apdref}[1]{(ver \hyperref[#1]{Apéndice~\ref*{#1}})}
+
+\newcommand{\numberthis}{\stepcounter{equation}\tag{\theequation}}
+
+\renewcommand\vector{\vb}
+\newcommand\avect[1]{\vector{a}_{#1}}
+\newcommand\bvect[1]{\vector{b}_{#1}}
+\newcommand\dvect[1]{\vector*{\delta}_{#1}}
+\newcommand\Rvect[1]{\vector{R}_{#1}}
+\newcommand\rvect{\vector{r}}
+\newcommand\kvect{\vector{k}}
+\newcommand\qvect{\vector{q}}
+\newcommand\pvect{\vector{p}}
+
+\newcommand{\SnnInt}[2][-]{e^{#1i\kvect\cdot#2}\bra{\phi_{0}(\rvect)}\ket{\phi_{1}(\rvect - \dvect{1} + #2)}}
+\newcommand{\TnnInt}[2][-]{e^{#1i\kvect\cdot#2}\bra{\phi_{0}(\rvect)}V^\prime(\rvect)\ket{\phi_{1}(\rvect - \dvect{1} + #2)}}
+\newcommand{\TnnnInt}[2][+]{
+	%
+	\def\mainsign{#1}
+	\def\oppositesign{-}
+	\ifx\mainsign\oppositesign\def\oppositesign{+}\else\def\mainsign{}\fi
+	%
+	e^{\mainsign i\kvect\cdot#2}\bra{\phi_{0}(\rvect)}V^\prime(\rvect)\ket{\phi_{0}(\rvect \oppositesign #2)}
+}
+
+\newcommand{\cancelshade}[1]{{\color{black!50}#1}}
+
+\newcommand{\comentario}[2][Ángel]{\textbf{#1} {\itshape\color{gray} #2}}
+
+\let\cleardoublepage=\clearpage

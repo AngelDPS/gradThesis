@@ -1,0 +1,21 @@
+\ProvidesPackage{TEG-ANGEL-pgf}
+
+\RequirePackage{tikz}
+\RequirePackage{pgfplots}
+\pgfplotsset{compat=1.16}
+
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{quotes}
+\usetikzlibrary{positioning}
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{intersections}
+\usetikzlibrary{patterns}
+\usetikzlibrary{shapes.misc}
+
+\tikzset{cross/.style={cross out, draw=red,	minimum size=0.75cm, 
+		inner sep=0pt, outer sep=0pt, line width=2pt}}
+\def\tikzcross{\tikz[baseline=2.5pt]{\node[cross]{};}}
+
+\pgfdeclarelayer{background}
+\pgfdeclarelayer{foreground}
+\pgfsetlayers{background,main,foreground}
