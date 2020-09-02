@@ -38,7 +38,7 @@ Los elementos de matriz para el operador velocidad de la cadena lineal ($\wideha
 	\matrixel{k}{\widehat{V}}{k'} &= \frac{1}{\hbar} \pdv{\varepsilon(k)}{k} \delta^{k'}_k = \frac{2t}{\hbar} a\sin(ka)\delta^{k'}_k . \numberthis\label{eq:velOPmatrixEl}
 \end{align*}
 
-Las deltas de Dirac de la fórmula de Kubo-Greenwood \eqref{eq:KuboGreenwood} se aproximan mediante el KPM (Kernel Polynomial Method) \autocite{Weise2006}
+Las deltas de Dirac de la fórmula de Kubo-Greenwood \eqref{eq:KuboGreenwood} se aproximan mediante el KPM \eqref{eq:kpm}
 \begin{equation}\label{eq:diracDeltaKPM}
 	\delta(E - \widehat{H}) \sim \frac{2}{\pi \Delta E \sqrt{1 - \widetilde{E}^2}} \sum_{m=0}^{M} T_m(\widetilde{E}) \frac{g^J_m T_m(\widetilde{H})}{1 + \delta^m_0},
 \end{equation}
@@ -47,20 +47,17 @@ donde
 	$\Delta E = \frac{E_{\mathrm{máx}} - E_{\mathrm{mín}}}{2}$
 %\end{equation*}
 es el ancho de banda, 
-\begin{equation}\label{eq:ChebyshevPol}
-	T_m(x) = \cos(m\acos(x)),
-\end{equation}
-es el polinomio de Chebyshev de grado $m$,
 %\begin{equation*}\label{eq:reducedEnergy}
 	$\widetilde{E} = \frac{E - \bar{E}}{\Delta E}$ 
 %\end{equation*}
 es la energía reducida (y $\widetilde{H}$ es correspondientemente el hamiltoniano reducido), con $\bar{E} = \frac{E_{\mathrm{máx}} + E_{\mathrm{mín}}}{2}$ el centro de banda;
+Se utiliza el kernel de Jackson, dado por los factores de amortiguamiento
 \begin{equation}\label{eq:jacksonKernel}
-	g_m^J = \frac{(M + 1 - m)\cos(\frac{\pi m}{M + 1}) + \sin(\frac{\pi m}{M + 1})\cot(\frac{\pi}{M + 1})}{M + 1}
+	g_m^J = \frac{(M + 1 - m)\cos(\frac{\pi m}{M + 1}) + \sin(\frac{\pi m}{M + 1})\cot(\frac{\pi}{M + 1})}{M + 1},
 \end{equation}
-corresponde a los factores asociados al kernel de Jackson para amortiguar las oscilaciones de Gibbs generadas por el truncamiento de la serie de Chebyshev a un número $M$ finito de términos.
+que ha demostrado ser óptimo para esta aplicación \autocite{Weise2006}.
 
-Con todo lo anterior, la conductividad a temperatura cero se aproxima como (asumiendo un mismo número de términos $M$ para la aproximación polinómica de ambas deltas de Dirac)
+Con todo lo anterior, la conductividad a temperatura cero se aproxima como
 \begin{equation}\label{eq:KGapprox}
 	\begin{aligned}
 		\sigma(E) &\sim \frac{4\hbar e^2}{\pi\Omega{\Delta E}^2(1 - \widetilde{E}^2)} \sum_{m=0}^{M} \sum_{n=0}^{M} T_m(\widetilde{E})T_n(\widetilde{E}) g^J_m g^J_n \frac{\Trace[T_m(\widetilde{H})\widehat{V}T_n(\widetilde{H})\widehat{V}]}{(1 + \delta^m_0) (1 + \delta^n_0)}, \\ 
