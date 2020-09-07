@@ -11,3 +11,5 @@
 *.xml
 *.out
 *.toc
+
+img/pgf2pdf.tex

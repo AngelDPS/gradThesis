@@ -38,7 +38,11 @@ Los elementos de matriz para el operador velocidad de la cadena lineal ($\wideha
 	\matrixel{k}{\widehat{V}}{k'} &= \frac{1}{\hbar} \pdv{\varepsilon(k)}{k} \delta^{k'}_k = \frac{2t}{\hbar} a\sin(ka)\delta^{k'}_k . \numberthis\label{eq:velOPmatrixEl}
 \end{align*}
 
-Las deltas de Dirac de la fórmula de Kubo-Greenwood \eqref{eq:KuboGreenwood} se aproximan mediante el KPM \eqref{eq:kpm}
+Es posible aplicar distintos enfoques para calcular la traza de la conductividad de Kubo-Greenwood \eqref{eq:KuboGreenwood}, que se diferencian en la forma de abordar  los operadores de proyección cuánticos dentro de las mismas. Es de nuestro interés analizar la aproximación de estos operadores mediante el KPM y mediante funciones gausianas.
+
+\subsection{Aproximación mediante el KPM}
+
+Las deltas de Dirac se aproximan mediante el KPM \eqref{eq:kpm}
 \begin{equation}\label{eq:diracDeltaKPM}
 	\delta(E - \widehat{H}) \sim \frac{2}{\pi \Delta E \sqrt{1 - \widetilde{E}^2}} \sum_{m=0}^{M} T_m(\widetilde{E}) \frac{g^J_m T_m(\widetilde{H})}{1 + \delta^m_0},
 \end{equation}
@@ -89,7 +93,7 @@ con esto se puede obtener la cantidad $ \mu^m_n $, presentada en la expresión \
 	\mu^m_n &= \pqty{\frac{a}{2\hbar}}^2 \bqty{\delta^m_n\frac{(1-\tfrac{1}{2}\delta^m_1)}{(1 + \delta^m_0)}\frac{1 + \delta^m_1}{1 + \delta^m_1} - \tfrac{1}{2}(1 - \delta^m_n)\frac{\delta^{m+n}_2 + \delta^{\abs{m-n}}_2}{(1 + \delta^m_0) (1 + \delta^n_0)} \frac{1 - \tfrac{1}{2}\delta^m_0 - \tfrac{1}{2}\delta^n_0}{1 - \tfrac{1}{2}\delta^m_0 - \tfrac{1}{2}\delta^n_0}},\\
 	\intertext{Para $ m \neq n $ la ecuación $ m + n = 2 $ solo tiene como resultados posibles los valores $ (m, n) = \{(0, 2), (2, 0)\} $ por lo cual $ \delta^{m+n}_2 = \delta^m_0\delta^n_2 + \delta^m_2\delta^n_0 $,}
 	\mu^m_n &= \pqty{\frac{a}{2\hbar}}^2 \bqty{\frac{\delta^m_n}{(1 + \delta^m_0 + \delta^m_1)} - \tfrac{1}{2}(1 - \delta^m_n)(\delta^m_0\delta^n_2 + \delta^m_2\delta^n_0 + \delta^{\abs{m-n}}_2)(1 - \tfrac{1}{2}\delta^m_0 - \tfrac{1}{2}\delta^n_0)},\\
-	\mu^m_n &= \pqty{\frac{a}{2\hbar}}^2 \bqty{\frac{\delta^m_n}{(1 + \delta^m_0 + \delta^m_1)} - \tfrac{1}{2}(1 - \delta^m_n)\delta^{\abs{m-n}}_2}.\numberthis\\
+	\mu^m_n &= \pqty{\frac{a}{2\hbar}}^2 \bqty{\frac{\delta^m_n}{(1 + \delta^m_0 + \delta^m_1)} - \tfrac{1}{2}(1 - \delta^m_n)\delta^{\abs{m-n}}_2}.\numberthis\label{eq:LC_KPM_moments}
 \end{align*}
 
 Sustituyendo esta expresión en la aproximación para la conductividad \eqref{eq:KGapprox}
@@ -97,3 +101,37 @@ Sustituyendo esta expresión en la aproximación para la conductividad \eqref{eq
 	\sigma(E) &\sim \frac{4\hbar e^2}{N\pi(1 - E^2)} \pqty{\frac{a}{2\hbar}}^2 \sum_{m=0}^{M} \sum_{n=0}^{M} T_m(E)T_n(E)g_m g_n \bqty{\frac{\delta^m_n}{(1 + \delta^m_0 + \delta^m_1)} - \tfrac{1}{2}(1 - \delta^m_n)\delta^{\abs{m-n}}_2},\\
 	\sigma(E) &\sim \frac{a^2e^2}{Nh(1 - E^2)} \sum_{m=0}^{M} \sum_{n=0}^{M} T_m(E)T_n(E)g_m g_n \bqty{\frac{\delta^m_n}{(1 + \delta^m_0 + \delta^m_1)} - \tfrac{1}{2}(1 - \delta^m_n)\delta^{\abs{m-n}}_2}.\numberthis
 \end{align*}
+
+\subsection{Aproximación mediante función Gaussiana}\label{ssec:aproxGauss}
+
+Para empezar, nos aprovechamos de que tanto el operador velocidad y el operador de proyección cuántico son diagonales en el espacio de momentos, tal que la traza de \eqref{eq:KuboGreenwood} se puede expresar como
+\begin{align*}
+	\Tr[\delta(E - \widehat{H}) \widehat{V} \delta(E - \widehat{H}) \widehat{V}] &= \frac{1}{N} \sum_{k} \bra{k} \delta(E - \widehat{H}) \widehat{V} \delta(E - \widehat{H}) \widehat{V} \ket{k}, \\ 
+	\intertext{Aplicando relaciones de completitud, nos quedamos con los autovalores de $ \widehat{H} $ \eqref{eq:LC-kHAM} y $ \widehat{V} $ \eqref{eq:velOPmatrixEl}}
+	\Tr[\delta(E - \widehat{H}) \widehat{V} \delta(E - \widehat{H}) \widehat{V}] &= \frac{4t^2a^2}{N \hbar^2}\sum_{k} \delta^2(E + 2t\cos(ka)) \sin[2](ka).
+\end{align*}
+
+La aproximación pertinente resulta entonces en aproximar uno de los operadores de proyección mediante una función Gaussiana
+\begin{equation*}
+	\delta(E + 2t\cos(ka)) = \lim_{\sigma \to 0} \frac{1}{\sqrt{2\pi\sigma^2}}\exp(-\frac{[E + 2t\cos(ka)]^2}{2\sigma^2}),
+\end{equation*}
+donde sigma se interpreta como un ensanchamiento de las energías permitidas por el operador de proyección, de modo que, cambiando la sumatoria de la traza por una integral sobre el espacio de momentos, obtenemos la expresión
+\begin{align*}
+	\Tr[\cdots] &= \frac{4t^2a^2}{2 \pi\hbar^2\sqrt{2\pi\sigma^2}} \int_{0}^{2\pi} \exp(-\frac{[E + 2t\cos(ka)]^2}{2\sigma^2}) \sin[2](ka) \delta(E + 2t\cos(ka)) d(ka), \\ 
+	\Tr[\cdots] &= \frac{2t^2a^2}{\pi\hbar^2\sqrt{2\pi\sigma^2}} \sum_{i} \exp(-\frac{[E + 2t\cos(k_ia)]^2}{2\sigma^2}) \frac{\sin[2](k_ia)}{\abs{2ta\sin(k_ia)}}, \\ 
+	\Tr[\cdots] &= \frac{|t|a}{\pi\hbar^2\sqrt{2\pi\sigma^2}} \sum_{i} \exp(-\frac{[E + 2t\cos(k_ia)]^2}{2\sigma^2}) \abs{\sin(k_ia)}, \\
+	\Tr[\cdots] &= \frac{2|t|a}{\pi\hbar^2\sqrt{2\pi\sigma^2}} \exp(-\frac{[E - E]^2}{2\sigma^2}) \abs{\sin(\acos(-\frac{E}{2t}))}, \\ 
+	\Tr[\cdots] &= \frac{2|t|a}{\pi\hbar^2\sqrt{2\pi\sigma^2}} \sqrt{1 - \frac{E^2}{4t^2}} = \frac{a}{\pi\hbar^2\sqrt{2\pi\sigma^2}} \sqrt{4t^2 - E^2}\numberthis.
+\end{align*}
+
+Finalmente, sustituyendo esta expresión en la conductividad a temperatura cero resulta en
+
+\begin{equation}\label{eq:kuboBastinGauss}
+	\sigma(E, \mu) = \frac{a e^2}{N} \frac{a}{\hbar\sqrt{2\pi\mu^2}} \sqrt{4t^2 - E^2}
+\end{equation}
+
+\begin{figure}[bt]
+	\centering
+	\includegraphics{./img/LC_cond.pdf}
+	\caption{Resultados obtenidos para la conductividad a temperatura cero de la cadena lineal mono-atómica ($ N = 2\cdot\megad $) según la ecuación de Kubo-Greenwood \eqref{eq:KuboGreenwood}. Se muestran los primeros $ 10 \times 10 $ elementos de la matriz de momentos $ \mu $ de la aproximación mediante KPM \eqref{eq:KGapprox} calculados de forma analítica bajo la expresión \eqref{eq:LC_KPM_moments} y mediante el programa \textsc{LinQT}, a su vez que se observa la conductividad $ \sigma $ obtenida tanto por \textsc{LinQT} como la aproximación del operador de proyección usando una función Gaussiana \eqref{eq:kuboBastinGauss}. \label{fig:LC_cond}}
+\end{figure}
